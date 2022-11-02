@@ -1,0 +1,58 @@
+Previously, you looked at some techniques
+on optimizing your app that uses models. You've explored hardware and container
+strategies, model architectures, and things like caching in your app to make
+sure that data access doesn't become a bottleneck. But there are other places
+where you can optimize. So let's start to look and start by
+considering the input data to your app. If you go back to this very simple high
+level diagram of an app, remember that the observation data being passed into
+the system may be in one format but that's not necessarily the same format
+that the model was designed to take in. The data has to be converted somehow. So, for example, consider a simple
+language model where maybe the observation is a sentence that the user typed and
+is stored as a strength. The model is designed to classify
+that text to see if it's toxic. NLP models like this are trained on input
+vectors where words are transformed into a high dimensional vector and
+sentences are sequences of these vectors. Now that pre processing of
+the data has to be done somewhere. And that's just a relatively simple
+example of where you need to do a translation of data from
+one format to another. Other areas to consider when pre
+processing are things like data cleansing where you correct invalid
+values in incoming data. For example, maybe you're
+building an image classifier and the user sends you a picture that's
+invalid because it's too big. You could reject it, of course, or you could take on the process of
+re-sizing it to get a valid picture size. Then there's feature tuning where you do
+some transformation on the data to make it suitable for the model. In the case of an image, this could be
+normalization where instead of us having a 32 bit value to represent a pixel, you
+might convert it to three 8 bit values for red, green and blue,
+ignoring the alpha channel. And then instead of these having
+values between 0 and 255, you could convert them
+to values between 0 and 1 as neural networks tend to deal better
+with normalized values like that. Or with the example of a string coming in,
+its encoding the string into the vocabulary representation
+that the model uses, which could clip outliers such
+as infrequently used words. Often models will require data
+pre processing to involve feature construction. So for example, when it comes
+to a model that, for example, might predict the price of a house, the input data might have multiple
+columns such as the number of rooms and the size of each, but the model is trained
+on the total floor space of the house. So then feature crossing could be used to
+multiply the values that you have out to get the feature type that the model uses. Other scenarios here could
+be a polynomial expansion where a new feature is calculated from
+a formula of the original feature. Maybe the data contains temperature in
+Celsius but the model expects Fahrenheit. Feature tuning and feature construction
+can also be a form of representation transformation where the input
+data needs to be transformed for the model to understand it. One classic use of this is
+one hot encoding of data. And then there's the smart caching
+of features that you could have done during training. For example, in our sentence example,
+there may be common sentences such as good morning, that instead of us going through
+cleansing, tuning, construction and representation transformation, that you
+could just have the input data format, pre transformed to cache and
+you use just that. But don't forget about post processing. So once your model has given its
+predictions back to the app, you still need to do something with those. So for example, in a smart reply app,
+the model may give a few predictions about what the best next sentences could be and
+these may be a sequence of vectors representing words in a sentence,
+but not the sentence itself. Your app will need to convert these into a
+string before returning them to the user. This is post processing of data. Everything that you saw in pre processing
+can apply but usually in reverse. So now that you've seen what post
+processing looks like, let's explore a few products that are out there that can
+give you shortcuts to doing this task. Next up, I'm providing a reading note
+that introduces you to Apache Beam and TensorFlow Transform, which really
+help with the task of pre-processing.

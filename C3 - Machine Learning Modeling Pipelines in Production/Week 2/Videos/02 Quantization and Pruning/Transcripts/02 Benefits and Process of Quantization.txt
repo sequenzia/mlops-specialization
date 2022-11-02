@@ -1,0 +1,131 @@
+Now let's discuss
+some techniques for optimizing your models. Especially for
+deployment scenarios, such as mobile and IoT, where the capabilities of
+the device are extremely limited compared to running
+on a server or in the Cloud. However, before doing so, let's clarify that
+these techniques can benefit any model
+regardless of where it is deployed since they reduce the compute resources
+required to serve the model. Quantization involves
+transforming a model into an equivalent
+representation that uses parameters and computations
+at a lower precision. This improves the model's execution performance
+and efficiency, but it can often result
+in lower model accuracy. Let's use an analogy to
+understand this better. Think of an image. As you might know, a picture is a grid of pixels where each pixel has a
+certain number of bits. Now if you try reducing the continuous color spectrum of real-life to discrete colors, we're quantizing or
+approximating the image. In this animation,
+you can see that a black and white image could be represented with
+one bit per pixel, while a typical picture with
+color has 24 bits per pixel. Quantization, in essence,
+lessens or reduces the number of bits needed
+to represent information. However, you may
+notice that as you reduce the number of pixels
+beyond a certain point, depending on the image, it may get harder to
+recognize what that image is. Neural network models can
+take up a lot of this space. For example, AlexNet which requires around 200
+megabytes of disk space. Nearly all of that size is taken up with the weights for
+the neural connections, as there are often many millions of these in a single model. Because they're all slightly different
+floating-point numbers. Simple compression-like
+zipping doesn't compress them well unless we make
+models less dense. Most straightforward
+motivation for quantization is to
+shrink file sizes. For mobile apps, especially it's often impractical to store a 200-megabyte model on the phone just to
+run a single app. Compressing higher precision
+models is necessary. Another reason to
+quantize is to reduce the computational resources
+that you need to do inference calculations
+by running them entirely with low precision
+inputs and outputs. This is a lot more
+difficult since it requires changes everywhere
+you do calculations, but it offers potential rewards. Doing this will help
+you run your models faster and use less power, which is especially
+important on mobile devices. It also opens the
+door to a lot of embedded systems that can't run floating-point efficiently, enabling many applications
+in the IoT world. Now, let's take a look at
+what quantization means. MobileNets are a family of architectures that achieve
+a state-of-the-art trade-off between
+on-device latency and ImageNet
+classification accuracy. A recent publication
+demonstrated how integer-only quantization could further improve the
+trade-off on common hardware. The authors of the paper benchmarked the MobileNet
+architecture with varying depth multipliers
+and resolutions on ImageNet on three types
+of Qualcomm cores. This plot is for the
+Snapdragon 835 chip. You can see that for any
+given level of accuracy, latency time is lower for the
+8-bit version of the model. Arithmetic with lower
+bit depth is faster, assuming that the
+hardware supports it. Even though floating-point
+computation is no longer slower than
+integer on modern CPUs, operations with 32-bit
+floating-point will almost always be slower than,
+say, eight-bit integers. Moving from 32 bits
+to eight bits, we usually get speedups of
+4x reduction in memory. Lighter deployment
+models mean they have less storage space
+and are easier to share over smaller bandwidths
+and easier to update. Lower bit depths also
+mean we can squeeze more data into the same
+caches and registers. This makes it possible to
+build applications with better caching capabilities that reduce power usage
+and run faster. Floating-point
+arithmetic is hard, which is why it may not
+always be supported on microcontrollers and on some ultra low-powered
+embedded devices, such as drones, watches,
+or IoT devices. Integer support,
+on the other hand, is always readily available. Neural networks consist
+of activation nodes, the connections
+between the nodes, a weight parameter associated
+with each connection, and a bias term. When it comes to
+quantizing these networks, it is these weight
+parameters and activation node
+computations that we're trying to quantize. Quantization squeezes
+a small range of floating-point values into a fixed number of
+information buckets. As you can see in this diagram. This process is lossy in nature. But the weights
+and activations of a particular layer often tend
+to lie in a small range, which can be
+estimated beforehand. This means we don't need
+the ability to store a range in the same data type, allowing us to concentrate our precious fewer bits
+within a smaller range. Say negative three
+to positive three. As you might imagine, it will be crucial to accurately
+know this smaller range. If done right, quantization causes only a small
+loss of precision, which usually doesn't change
+the output significantly. Now, let's see what
+parts of a model are affected after
+applying quantization. One of them could be
+static parameters like the weights of layers, and others could be dynamic ones like activations
+inside networks. You could also have
+transformations like adding, modifying, or removing operations, coalescing different
+operations, and so on. In some cases, transformations
+may need extra data. You'll see how this is the case in one of
+the techniques of quantization where
+some unlabeled data is used to determine
+scaling parameters. Optimizations can often result in changes in model accuracy, which must be considered during the application
+development process. The accuracy changes depend
+on the individual model and data being optimized and are difficult to
+predict ahead of time. Generally, models that are
+optimized for size and latency will lose some
+amount of accuracy. Depending on your application, this may or may not impact
+your user's experience. In rare cases, certain
+models may actually gain some accuracy as a result of
+the optimization process. In terms of interpretability, there are some
+effects which may be imposed on the model
+after quantization. This means that it's
+hard to evaluate whether transforming a layer was going in the right
+or wrong direction. Mobile and embedded devices have limited
+computational resources, so it's important to keep your application
+resource-efficient. Depending on the task, you will need to make
+a trade-off between model accuracy and
+model complexity. If your task requires
+high accuracy, then you may need a
+large and complex model. For tasks that require
+less precision, it's better to use a
+smaller, less complex model. Because they not only use
+less disk space in memory, but they are also generally faster and more
+energy-efficient. For example, these
+graphs show accuracy and latency trade-offs for some common image
+classification models. One example of models optimized for mobile
+devices are MobileNets, which are optimized for
+mobile vision applications. Once you've selected
+a candidate model that is right for your task, it's a good practice to profile
+and benchmark your model.

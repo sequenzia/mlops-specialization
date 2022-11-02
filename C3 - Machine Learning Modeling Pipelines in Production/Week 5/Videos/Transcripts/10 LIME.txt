@@ -1,0 +1,21 @@
+Now let's briefly discuss LIME, which is a popular and
+well-known framework for producing local
+explanations. LIME is a popular and
+well-known framework for creating local interpretations
+of model results. The idea is quite intuitive. First, forget about
+the training data and imagine that you only have a black-box model where you can input data points and get the
+predictions of the model. You can probe the box
+as often as you'd want. Your goal is to understand why the model made a
+certain prediction. LIME tests what happens
+to the predictions when you give variations
+of your data to the model. LIME generates a new
+dataset consisting of permuted samples and the corresponding
+predictions of the model. With this new dataset LIME then trains an interpretable model, which is weighted by
+the distance from the sampled instances to the result that
+we're interpreting. The interpretable model can be anything that is
+easily interpretable, like a linear model
+or a decision tree. The new model should be a reasonably good approximation of the model results locally, but it does not have to be a
+good global approximation. This kind of accuracy is
+called local fidelity. You then explain
+the prediction by interpreting the
+new local model.

@@ -1,0 +1,196 @@
+Now let's talk about
+high-performance modeling and some of the issues with
+increasingly large models, along with some
+advanced techniques for training large models. In recent years, the size of
+machine learning datasets and models has been
+continuously increasing, allowing for improved results
+on a wide range of tasks, including speech recognition, visual recognition, and
+language processing. Recent advances by BigGAN, BERT, and GPT-3 have shown that ever-larger models lead to
+better task performance. At the same time, hardware
+accelerators like GPUs and TPUs have also been
+increasing in power, but at a significantly
+slower pace. The gap between model growth and hardware improvement
+has increased the importance of parallelism. Parallelism in this
+context means training a single machine learning model on multiple hardware devices. Some model architectures,
+especially small models, are conducive to
+parallelism and can be divided quite easily
+between hardware devices. In enormous models, synchronization costs lead
+to degraded performance, preventing them from being used. There's also a strong
+correlation between model size and
+classification accuracy. For example, the winner of the 2014 ImageNet Visual Recognition Challenge
+was GoogleNet, which achieved 74.8 top-1 accuracy with four
+million parameters. While just three years later, the winner of the 2017
+ImageNet Challenge went to Squeeze-and-Excitation
+Networks, which gained an
+82.7 top-1 accuracy with 145.8 million parameters. This was a 36 fold increase in the number of parameters
+in just three years. Massive numbers of weights and activation parameters require
+massive memory storage. The natural question
+is where to store them as the models continue to require more and
+more parameters? In the last few years, memory capacity made
+very modest increases compared to model
+parameters growth. More concretely, GPU memory has only increased by a factor
+of approximately three, and the current
+state-of-the-art image models have already reached the available memory
+found on Cloud TPU V2s. There is a strong and pressing
+need for an efficient, scalable infrastructure
+that enables large-scale deep learning and overcomes the memory limitations
+on current accelerators. But in some ways, this is not a new problem. Let's look at how
+some older methods approach this problem of overcoming memory
+constraints and see if we could
+apply them today. Then let's look at
+some newer methods and some of the advances that
+they've been able to make. There is a need to strategize
+and implement solutions to overcome these important
+memory constraints. One strategy that can
+overcome problems with insufficient GPU memory
+is gradient accumulation. Gradient accumulation
+is a mechanism to split full batches into
+several mini-batches. During backprop, the model isn't updated with
+each mini-batch, and instead, the gradients
+are accumulated. When a full batch completes, the accumulated gradients of all the previous
+mini-batches are used for backprop to
+update the model. This process is as effective as using a
+full batch for training the network since
+model parameters are updated the same
+number of times. The second approach is swapping. Here, since there isn't enough storage on
+the accelerator, you copy activations
+back to the CPU or memory and then back
+to the accelerator. The problem here
+is that it's slow, and the communication
+between CPU or memory and the accelerator
+becomes the bottleneck. Returning to our
+discussion of parallelism, the basic idea is to split the computation between
+multiple workers. You've already seen two
+ways to parallelize, data parallelism and
+model parallelism. Data parallelism splits
+the input across workers. Model parallelism splits
+the model across workers. In data parallelism,
+different workers or GPUs work on the same model but
+deal with different data. The model is replicated
+across a number of workers and each worker performs the
+forward and backward pass. When it finishes the process, it synchronizes the
+updated model weights with the other devices and calculates the updated weights of
+the entire minibatch. In model parallelism, however, workers only need to synchronize
+the shared parameters, usually once for each
+forward or backprop step. Also, larger models aren't
+a major concern since each worker operates
+on a subsection of the model using the
+same training data. When using model
+parallelism in training, the model is divided
+across k workers with each worker holding
+a part of the model. A naive approach to
+model parallelism is to divide an
+n-layered neural network into k workers by simply hosting n over k
+layers on each worker. More sophisticated methods
+make sure that each worker is similarly busy by analyzing the computational
+complexity of each layer. Standard model parallelism
+enables training of larger neural networks but
+suffers from a large hit in performance since workers are
+constantly waiting for each other and only one can perform
+updates at a given time. Moving back to data parallelism, let's look at some benchmarks. This chart shows communication overhead
+as a percentage of total training time for three different hardware
+configurations. Many models like
+AlexNet and VGG16 have a high communication
+overhead even on the relatively
+slow K80 accelerator. Two factors contribute
+to an increase in the communication overhead
+across all models, an increase in the number of data-parallel workers
+and an increase in GPU compute capacity. With data parallelism, the input dataset is partitioned
+across multiple GPUs. Each GPU maintains a full copy
+of the model and trains on its own partition of data while periodically synchronizing
+weights with other GPUs, using either collective
+communication primitives or parameter servers. The frequency of
+parameter synchronization affects both statistical
+and hardware efficiency. Synchronizing at the
+end of every mini-batch reduces the staleness of weights used to
+compute gradients, ensuring good
+statistical efficiency. Unfortunately, this requires each GPU to wait for gradients
+from other GPUs, which significantly lowers
+hardware efficiency. Communication stalls
+are inevitable in data-parallel training due to the structure of
+neural networks, and the result is that
+communication can often dominate total
+execution time. Rapid increases in
+accelerator speeds further shift the training bottleneck
+towards communication. Then there's another problem. Accelerators. They
+have limited memory and limited communication
+bandwidth on the host machine. That means that
+model parallelism is needed for training
+bigger models on accelerators by
+dividing the model into partitions and assigning different partitions to
+different accelerators. But due to the sequential
+nature of neural networks, this naive strategy
+may result in only one accelerator being
+active during computation, significantly underutilizing accelerator compute capacity. On the other hand, a standard data parallelism
+approach allows concurrent training of
+the same model with different input data on
+multiple accelerators, but cannot increase
+the maximum model size an accelerator can support. The issues with data and
+model parallelism have led to the development of pipeline
+parallelism. In this diagram. A naive model parallelism
+strategy leads to severe under utilization due to the sequential
+nature of the model, only one accelerator
+is active at a time. To enable efficient training across multiple accelerators, you need to find a
+way so that you can partition a model across
+different accelerators and automatically
+split a mini-batch of training examples into
+smaller micro-batches. By pipelining any execution
+across micro-batches, accelerators can
+operate in parallel. In addition, gradients are consistently accumulated across micro-batches so
+that the number of partitions does not
+affect model quality. Google's GPipe is an
+open source library for efficiently training large-scale models using
+pipeline parallelism. In the diagram at the bottom, GPipe divides the input mini-batch into
+smaller micro-batches enabling different
+accelerators to work on separate micro-batches
+at the same time. GPipe essentially
+presents a new way to approach model parallelism, which allows training
+of large models on multiple hardware devices with an almost one-to-one
+improvement in performance. It also helps models include significantly
+more parameters, allowing for better
+results in training. There's also PipeDream
+from Microsoft, which also supports
+pipeline parallelism. GPipe and PipeDream are
+similar in many ways. Pipeline parallelism
+frameworks such as GPipe and PipeDream
+integrate both data and model parallelism to achieve high efficiency and
+preserve model accuracy. They do that by dividing mini-batches into
+smaller micro-batches, by allowing different
+workers to work on different micro-batches
+in parallel. As a result, they can train models with significantly
+more parameters. GPipe is an open source distributed machine
+learning library that uses synchronous mini-batch gradient descent for training. It partitions a model across
+different accelerators and automatically splits
+a mini-batch of training examples
+into micro-batches. By pipelining the execution
+across micro-batches, accelerators can
+train in parallel. GPipe receives as input an architecture of
+a neural network, a mini-batch size
+and the number of hardware devices that will be available for the calculation. It then automatically divides
+the network layers into stages and the mini-batches
+into micro-batches, spreading them
+across the devices. To divide the model
+into key stages, GPipe estimates the cost
+of each layer given its activation function and the content of the
+training data. GPipe attempts to maximize memory allocation for
+model parameters. The research team at Google ran experiments on Cloud TPU v2s, each of which has eight accelerator cores and
+64 gigabytes of memory; eight gigabytes per accelerator. Without GPipe, a single
+accelerator can only train up to 82 million
+model parameters due to memory constraints. Thanks to re-computation in back propagation and
+batch splitting, GPipe reduce intermediate
+activation memory from 6.2 gigabytes to 3.4 gigabytes, enabling a single
+accelerator to train up to 318 million parameters. They also saw that with
+pipeline parallelism, the maximum model
+size was proportional to the number of
+partitions as expected. With GPipe, testing with an AmoebaNet model was
+able to incorporate 1.8 billion parameters on the eight accelerators
+of the Cloud TPU, 25 times more than is
+possible without GPipe. To test efficiency, they
+measured the effects of GPipe on the throughput
+of an AmoebaNet D model. Since training required
+at least two accelerators to fit the model size, they measured the speed
+up with respect to the naive case with
+two partitions, but no pipeline parallelism. They observed an almost
+linear speedup in training. Compared to the naive
+approach with two partitions, distributing the model across four times the
+accelerators achieved a speedup of 3.5 times.

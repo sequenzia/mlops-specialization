@@ -1,0 +1,53 @@
+Now let's get started
+with data augmentation. In this video I'll talk a bit about
+generating synthetic data and then I'll walk through an example of augmenting
+images using the CIFAR-10 dataset. And finally I'll mention a few other
+advanced techniques for data augmentation. Previously you explored methods for getting more labeled data
+by labeling unlabeled data. But another method is to augment your
+existing data to create more labeled examples. With data augmentation you expand the
+dataset by adding slightly modified copies of existing data or create new
+synthetic data from your existing data. With the existing data, it is possible
+to create more data by making minor alterations or
+perturbations in the existing samples. Simple tasks like flips or rotations and
+images are an easy way to double or triple the number of images in a dataset. Here's an example of these
+kinds of transformations. Data augmentation is a way to
+improve your model's performance, add new valid examples that fall into
+regions of the future space that aren't covered by your real examples and
+add valid examples in this way, improves coverage of your feature space. Keep in mind that if you add invalid
+examples, you run the risk of learning the wrong answer or at the very
+least of introducing unwanted noise. So be careful to only augment
+your data in valid ways. CIFAR-10, the CIFR-10 dataset,
+CIFAR is the Canadian Institute for Advanced Research,
+is a collection of images commonly used to train machine learning models and
+computer vision models. It's one of the most widely used
+datasets for machine learning research. CIFAR-10 contains 60,000
+32 by 32 color images. There's 10 different classes
+with 6000 images in each class. So let's take a practical look at data
+augmentation with the CIFAR-10 dataset. Will add a border padding the image and
+that new example is perfectly valid. Will crop the padded images to
+a 32 x 32 image and will flip or rotate the padded and cropped images
+based on a coin toss or random variable. So the model is not overfitting to
+particular rotations or scales. Since color images are tensors,
+tensorflow provides very useful functions to perform augmentations
+on image datasets. Let's look at a chunk of code that
+encapsulates the steps for doing a left, right flip. First we define a function that
+will use to augment image datasets. Then we'll use tf.image.resize
+with crop_or_pad which allows you to resize or
+crop the image. In this case we're going to pad. Tf.image.random crop generates a crop of
+size height by width across all channels. And then tf.image.random flip left, right does the same thing with
+rotations like flipping left or right. So the function returns the altered
+image to be appended to the dataset. Here's some examples after applying the
+padding, cropping and left, right flip. Apart from simple image manipulation,
+there are other advanced techniques for data augmentation,
+such as semi supervised data augmentation such as the unsupervised
+data augmentation or UDA. Or other methods using policy based
+data augmentation like AutoAugment. On the right,
+there's an example of a movie review. And then using policy augmentation,
+we generate a variant example. So we have a new example perfectly valid
+that we've been able to generate with augmentation. And we can do it again,
+we can generate another one. So in summary data augmentation
+is a great way to increase the number of labeled
+examples in your dataset. It increases the size of your dataset and the sample diversity, which results
+in better feature space coverage. Data augmentation can
+reduce overfitting and increase the ability of your
+model to generalize well.

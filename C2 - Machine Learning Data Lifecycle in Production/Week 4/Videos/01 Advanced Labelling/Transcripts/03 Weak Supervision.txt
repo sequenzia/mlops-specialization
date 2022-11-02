@@ -1,0 +1,63 @@
+Now, let's get started
+with weak supervision. The final advanced labeling
+technique that we'll be covering. This is a quote from Jeff Dean, who leads the machine learning
+research group at Google. He's commenting on the cost in terms of
+both time and labor, of labeling data. He's also commenting specifically on
+the work to create algorithmic approaches the labeling data. That rely on other sources of information,
+to produce noisy labels. Weak supervision which we'll discuss now, is the primary way of doing
+this kind of labeling. So, what is weak supervision? Well, weak supervision is a way to
+generate labels using information from one or more sources. Usually these are subject matter experts,
+and usually they're designing heuristics. The resulting labels are noisy rather
+than the deterministic labels that we're used to. More specifically weak
+supervision comprises one or more noisy conditional
+distributions over unlabeled data. And the main objective, is to learn
+a generative model that determines the relevance of each
+of these noisy sources. So, you start with unlabeled data for
+which you don't know the true labels. Then you add to the mix one or
+more weak supervision sources. These sources are a list of heuristic
+procedures that implement noisy, and imperfect automated labeling. Subject matter experts are the most common
+sources for designing these heuristics. Which typically consists
+of a coverage set, and an expected probability of the true
+label over the coverage set. By noisy we mean that the label has
+a certain probability of being correct. Rather than the 100 certainty that were
+used to, for labels in our labeled data. The main goal is to learn
+the trustworthiness of each supervision source, and this is done by
+training a generative model. The Snorkel framework came
+out of Stanford in 2016 and is the most widely used framework for
+implementing weak supervision. It doesn't require manual labeling, so the system programmatically builds and
+manages training data set. Snorkel provides tools to clean model and
+integrate the resulting training data rising through the weak
+supervision pipeline. Snorkel uses a novel theoretically
+grounded techniques, to get the job done promptly and
+efficiently. And in addition, Snorkel also offers
+data augmentation and slicing. With Snorkel, you'll start with unlabeled
+data and apply labeling functions. Which are the heuristics which
+are designed by subject matter experts, to generate noisy labels. You'll then use a generative model
+to de-noise the noisy labels, and assign importance weights to
+the different labeling functions. Finally, you'll train a discriminative
+model, your model with a de-noise labels. So let's take a look at
+what a couple of simple labeling functions might
+look like in code. Here I'll show a simple way to create
+functions to label spam using snorkel. The first step is to import
+the labeling function from snorkel. And then with this functional label
+messages spam, if it contains the word my. This is just an example it's
+an easy example to show, so messages with my don't have to be spam. Otherwise the function returns abstained, which means that it has no opinion
+on what the labels should be. The second function labels a message
+spam if it's longer than five words. So what we're showing here is you were
+using multiple labeling functions, to try to arrive at what
+the label should be. So let's review a few of the key points
+of advanced labeling techniques. Supervised learning requires labeled data,
+but labeling data is often an expensive,
+difficult, and slow process. Semi-supervised learning is one possible
+way to add labels to unlabeled data. So this method falls between unsupervised
+learning and supervised learning. It works by combining a small
+amount of labeled data with a large amount of unlabeled data. And this improves learning accuracy. Active learning is another
+advanced labeling method. It relies on intelligence
+sampling techniques, that select the most important examples
+the label and add to the data set. Active learning improves predictive
+accuracy while minimizing labeling cost. The last method you explored
+was weak supervision. Weak supervision leverages noisy,
+limited, or inaccurate label sources. Inside a supervised learning environment,
+to test labeling accuracy. Snorkel is a compact and user friendly system to manage all
+these operations for weak supervision. And establish training data
+sets using weak supervision.

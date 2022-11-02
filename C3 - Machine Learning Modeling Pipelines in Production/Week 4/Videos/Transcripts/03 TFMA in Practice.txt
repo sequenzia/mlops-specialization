@@ -1,0 +1,54 @@
+Let's take a quick look
+at how to set up and use TFMA to perform
+model analysis. Over the next set of slides, you'll be learning how
+TFMA helps you evaluate your model performance
+in different ways. You'll learn how TFMA evaluates your model against
+different slices of data and how TFMA keeps
+track of metrics over time. Before getting
+started, note that this example uses
+TFMA by itself, outside of a TFX pipeline. When you use TFMA
+in a TFX pipeline, the evaluator component already includes many of the steps performed in this example so you won't have to
+do them yourself. Instead, you would
+usually only provide the eval_config to the
+evaluator component, which we'll see later. As usual, let's begin by importing all the
+necessary libraries. In this case, we
+need TensorFlow, TensorFlow Transform, and
+TensorFlow Model Analysis. Next, to use TFMA, the first step is to
+train your model and generate a saved model object, which you will normally do anyway so that you
+can serve your model. The raw input
+examples need to be pre-processed in the same way during training while performing
+evaluation using TFMA. For example, if a feature was
+normalized before training, it will also need to be
+normalized before evaluation. If you train your model in a TFX pipeline and include
+a transform component, then the same pre-processing and feature engineering done during training will already be
+included in your saved model. However, if you did
+not train in TFX, you will need to apply the
+same pre-processing manually, which is done here in the
+get_serve_tf_examples function, in this case, using
+TensorFlow Transform. Next, we generate a saved model. In most cases,
+you'll want to use the serving default signature
+for your saved model, but you can also
+explicitly specify a different signature for the model in the model
+specification configuration. The next step involves creating an eval_config object that encapsulates the
+requirements for TFMA. More concretely, first, you
+have to define the slices of your dataset and the
+metrics that you want to use for analyzing your model. Then you wrap the
+model, slices, metrics, and other configurations
+in an eval_config object. This will determine what
+TFMA does when it's run. This is the same eval_config
+that you would give to the evaluator component
+in a TFX pipeline. With the eval_config object set, you're now ready to start
+analyzing your model. These examples use
+only one machine to perform the analysis. Using an orchestrator
+is not necessary. Here, the code sets the path to an evaluation graph and a directory to
+store the analysis. The next step is to call the
+TFMA run_model_analysis API. This will get your
+model analysis started. This API can accept slicing specifications directly as well. Finally, let's
+render the results and visualize the model
+analysis metrics. TFMA provides
+interactive widgets that can be run in notebooks, and this is a code that
+you would include in a notebook cell to generate the TFMA
+visualization widget. Here's what the
+visualizations look like. This tool enables you to really dig into your model
+performance and understand how it varies on
+different slices of data.

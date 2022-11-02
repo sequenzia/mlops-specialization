@@ -1,0 +1,127 @@
+Almost everything that
+we've talked about and we'll talk about in these courses,
+can be considered MLOps in a broad sense. But now let's take a closer look at
+MLOps in a more narrow sense and develop an understanding of different
+levels of maturity of MLOps processes and infrastructure. First, let's understand the two key
+roles within a typical engineering team. Data scientist and software engineer. Thinking about these roles will help
+you to understand why production ML requires data scientists to evolve into
+domain experts who can both develop predictive models and build production
+machine learning solutions. You'll also learn how AI components
+are parts of larger systems and explore the challenges in
+engineering in AI enabled system. Thinking first about data scientists,
+especially those coming from a research or academic background, they often focus on
+fixed data sets and focus on optimizing model metrics such as accuracy while
+doing prototyping in notebooks. Their training usually makes
+them experts in modeling and feature engineering and
+model size, cost, latency and fairness are often not
+a central focus of their work. Software engineers however, are much
+more focused on building products. So concerns such as cost and
+performance, stability, scalability, maintain ability and
+schedule are much more important to them. They identify strongly with
+customer satisfaction and recognize infrastructure
+needs such as scalability. They have a strong focus on quality,
+testing and detecting and mitigating errors and are keenly aware of the need
+for security, safety and fairness. They also however, tend to view
+their product as basically static with changes being primarily the result
+of bug fixes or new features. Changes in the data as
+the world around them changes, are not typically a primary concern
+when simply doing software development. Increasingly, data science and
+ML are becoming core capabilities for solving complex real world problems, transforming industries and
+delivering value. Currently, the ingredients for applying
+ML have already been made available or accessible with large datasets,
+inexpensive on demand compute resources and increasingly powerful
+accelerators for ML such as GPUs and TPUs on several cloud platforms
+like AWS, Azure and google cloud. There have been rapid advances in
+ML research in computer vision, natural language understanding and
+recommendation systems where there is an increased demand for
+applying ML to offer new capabilities. With all that in mind, many businesses
+have already started investing in their data science teams and
+ML capabilities to develop predictive models that can deliver business
+value to their customers. All of this drives an evolution of
+product focused engineering practices for ML, which is the basis for
+the development of MLOps. There are a number of problems
+affecting AI efforts today, so there is an increasing focus on improving
+our machine learning workflows. But it turns out that software
+engineering faced a similar situation in the recent past. There's no denying that in the nineties,
+software engineering too was once siloed. Back then even basic version control was
+fairly weak compared to what is currently used today, and things that you take for
+granted like CI/CDs didn't even exist. This resulted in software
+taking a long time to ship. So thinking about what
+it was like back then, is that where ML is today in
+today's perspective for many teams, it can take months to deploy their models
+to production once they've trained them. In some cases being that slow to
+market means missing opportunities or deploying models that are already decayed. Moreover, traditional data science
+projects lack tracking and then there are problems
+like manual tracking and models not being reproducible and
+data lacking provenance and a general lack of good tools and processes
+for collaboration between different teams. And once models do get
+deployed to production, there's often no monitoring for them. DevOps and is an engineering discipline
+which focuses on developing and managing software systems. It was developed over
+decades of experience and learning in the software
+development industry. Some of the potential benefits
+that it offers include reducing development cycles,
+increasing deployment velocity and ensuring dependable releases
+of high quality software. Like DevOps,
+MLOps is an ML engineering culture and practice that aims at unifying
+ML system development or dev and ML system operation or ops. Unlike DevOps, ML systems present
+unique challenges to core DeVOps principles like
+continuous integration which for ML means that you not only just test and
+validate code and components but also do the same for
+data schemas and models. Continuous delivery on the other hand,
+isn't just about deploying a single piece of software or service,
+but as a system more precisely, an ML pipeline that deploys a model to
+a prediction service automatically. As ML emerges from research
+disciplines like software engineering, DevOps and
+ML need to converge forming MLOps. So with that comes the need to employ
+a novel DevOps automation techniques dedicated for training and
+monitoring machine learning models. That includes continuous training, a new
+property that is unique to ML systems, which automatically re trains models for
+both testing and serving. And once you have models in production,
+it's important to catch errors and monitor inference data and performance
+metrics with continuous monitoring. Now, let's consider the major phases
+in the life cycle of an ML solution. Usually a data scientist or
+an ML engineer. Yeah, and you start by shaping data and
+developing an ML model and continue by experimenting until you
+get results which meet your goals. After that, you typically go ahead and
+set up pipelines for continuous training unless you
+already use the pipeline structure for your experimenting in model development,
+which I would encourage you to consider. Then you turn to model deployment,
+which involves more of the operations and infrastructure aspects of your
+production environment and processes. And then continuous monitoring
+of your model systems and data from your incoming requests. The data from those incoming
+requests will become the basis for further experimentation and
+continuous training. So, as you go from continuous training
+to model deployment, the tasks evolve into something that traditionally a
+DevOps engineer would be responsible for. That means that you need a DevOps engineer
+who understands ML deployment and monitoring. And now let's move on to a new practice
+for collaboration and communication between data scientists and operation
+professionals which is known as MLOps. MLOps provides capabilities
+that will help you build, deploy and manage machine learning
+models that are critical for ensuring the integrity
+of business processes. It also provides a consistent and
+reliable means to move models from development to production
+by managing the ML Lifecycle. Models generally need to be iterated and
+versioned. To deal with an emerging set of
+requirements, the models change based on further training or real world data
+that's closer to the current reality. MLOps also includes creating
+versions of models as needed and maintaining model version history. And as the real world and
+its data continuously change, it's critical that you manage model decay. With MLOps you can ensure
+that by monitoring and managing the model results continuously,
+you can make sure that accuracy, performance and other objectives and
+key requirements are acceptable. MLOps platforms also generally provide
+capabilities to audit compliance, access control, governance testing and
+validation and change and access logs. The logged information can include
+details related to access control like who is publishing models,
+why modifications are done and when models were deployed or
+used in production. You also need to secure your models from
+both attacks and unauthorized access. MLOps solutions can provide some
+functionality to protect models from being corrupted by infected data, being made
+on unavailable by denial of service contracts or being inappropriately
+accessed by unauthorized users. Once you've made sure your models
+are secure, trustable and good to go, it's often a good practice to establish a platform where they can be
+easily discovered by your team. MLOps can do that by
+providing model catalogs for models produced as well as
+a searchable model marketplace. These model discovery solutions
+will provide information to track the data origination, significance,
+model architecture and history and other metadata for
+a particular model.

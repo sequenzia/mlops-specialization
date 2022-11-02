@@ -1,0 +1,111 @@
+Model optimization is
+another area of focus where you can further optimize performance and
+resource requirements. The goal is to create models that are as efficient
+and accurate as possible and to achieve the highest performance
+at the least cost. Let's look at some advanced
+techniques for that now. Let's start by looking at some of the issues around the mobile, IoT and embedded applications. Machine learning is
+increasingly becoming part of more and more
+devices and products. This includes the
+rapid growth of mobile and IoT applications, including devices which
+are situated everywhere from farmers fields
+to train tracks. Businesses are using the data which these devices generate to train machine learning
+models to improve their business processes,
+products, and services. Even digital advertisers spend more on mobile than desktop. There are already billions of mobile and edge
+computing devices, and that number will continue to grow rapidly in the next decade. McKinsey predicts that by 2025, the overall economic
+impact of IoT and mobile could reach
+trillions of dollars, surpassing many sectors
+like automation of knowledge work or
+Cloud technology. As these devices become more and more ubiquitous and powerful, many of the machine
+learning tasks, which you think of as requiring months of high
+powered compute time, will become part of more and
+more fairly common devices. Now let's look at
+some of the reasons those trends occur
+in the first place. Traditionally, you can
+think of deploying machine learning
+models in the Cloud. This requires a server to run inference and
+return the results. But with the advance of
+machine learning research for applications on
+lower power devices, this processing can be offloaded to a device
+and run locally. This enables more
+opportunities for including machine learning is part of a device's core functionality. Moreover, the hardware costs for these devices continues to fall, which enables lower price
+points and higher volumes. A key aspect of on-device machine learning is that in most cases it ensures greater compliance with
+privacy regulations by keeping user
+data on the device. How should you deploy
+your models so that they can be used to
+generate real value? If you host them on a server, the mobile or IoT
+device needs to be connected so that it can
+make a network request. Another option is to embed the model on a mobile
+device directly. In your case, can you always rely on the device to have
+a network connection? Also is your model
+small enough and fast enough to perform
+inference on the device? Additionally, mobile
+devices offer limited processing
+capabilities which might affect which types of models
+you can embed in them. Furthermore, does
+the device have all the access it needs to
+the data that it needs? Or does it need things like historical data that are
+only available on a server? Suppose you're trying
+to build an app that applies different
+effects to photos. In a scenario where the models
+being hosted on a server, the app needs to first send
+the photo to the server, and then the server
+feeds the picture through a model to apply
+the desired effect, and a few seconds later, it sends the modified
+image back to the app. Using a server for inference has the advantage that it keeps
+the mobile app simple. The server encapsulates all
+of the model complexity. This means that you can
+update the model or add new features
+anytime you want. To deploy the improved model, you update the model
+on the server. That means that
+you probably don't have to update the app itself, unless you need to change the
+request that the app sends. One big drawback is the timely inference is a strong requirement
+in this setting. In case of on-device inference, you load the trained
+model into the app. Since the model runs in the app, you don't need to
+send a request over the Internet and
+wait for a reply. Instead, the prediction happens fast and you don't need
+a network connection. There's an increasing
+demand for sophisticated AI enabled services like image
+and speech recognition, natural language processing, visual search, and
+personalized recommendations. At the same time,
+datasets are growing. Networks are becoming
+more complex. Privacy is increasingly
+becoming an issue and latency requirements
+are tightening to meet user expectations. All of these trends
+influence the choice of where to generate predictions
+from your trained models, which in turn affects
+the architecture and complexity of the
+models that you train. Now let's take a look at some
+of the options available today to deploy models
+to mobile apps. ML Kit for Firebase
+offers ready to use APIs. You can also deploy your own TensorFlow Lite
+models if you don't find a base API that
+covers your use case. It targets mobile platforms
+and uses TensorFlow Lite, the Google Cloud Vision API and Android Neural Networks API to provide on-device
+machine learning, such as facial recognition, barcode scanning, and object
+detection among others. ML Kit gives you both
+on-device and Cloud APIs, meaning you can also use the APIs when there's
+no network connection. The Cloud based APIs make use of the Google
+Cloud Platform. With ML Kit, you can upload models through the
+Firebase Console and let the service take
+care of hosting and serving the models
+to your apps users. Another advantage is that since ML Kit is available
+through Firebase, it's possible to
+take advantage of the broader Firebase platform. With Core ML, you can build your model or use a
+pretrained model. To use your model, you
+first need to create a model using
+third-party frameworks. Then you convert your model
+to the Core ML model format. Supported frameworks
+includes Scikit-learn, Keras, Caffe, and XGBoost. There are also some pre-trained
+models ready for use. TensorFlow Lite was
+developed by Google and has APIs for many programming
+languages including Java, C++, Python, Swift,
+and Objective-C. It's optimized for
+on-device applications and provides an interpreter tuned for on-device machine learning. Custom models are converted to TensorFlow Lite
+format and their size is optimized to
+increase efficiency. TensorFlow Lite also
+supports optimizing models for IoT and embedded
+applications, for devices with as
+little as 20k of memory. TensorFlow Lite
+models can be trained and evaluated in TFX pipelines, which is important when
+the model will become part of a production,
+product, or service.

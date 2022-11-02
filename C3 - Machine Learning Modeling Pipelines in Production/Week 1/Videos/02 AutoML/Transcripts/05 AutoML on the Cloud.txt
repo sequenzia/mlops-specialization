@@ -1,0 +1,125 @@
+One of the easiest ways to use AutoML is by using
+a Cloud service. Let's talk about
+some of those now. We'll review three
+popular offerings; Amazon SageMaker Autopilot, Microsoft Azure Automated
+Machine Learning, and Google Cloud AutoML. In the exercises,
+you'll train a model using Google Cloud AutoML. Let's begin with Amazon
+SageMaker Autopilot. Amazon SageMaker Autopilot
+automatically trains and tunes the best machine
+learning models for classification or regression
+based on your data, while allowing you to maintain full control
+and visibility. Starting with your raw data, you select a label or target. Autopilot then searches for candidate models for you
+to review and choose from. All of these steps
+are documented on executable notebooks
+that give you full control and
+reproducibility of the process. This includes a leader board of model candidates to help you select the best model
+for your needs. You can then deploy the model
+to production or iterate on the recommended solutions to further improve model quality. Autopilot is optimized
+for quick iteration. It generates high-quality
+models quickly. After the initial
+set of iterations, autopilot creates
+a leaderboard of models ranked by performance. You can see which features in your dataset were
+selected by each model. You can then deploy a
+model to production. The process of generation of the models is
+completely transparent. Autopilot allows you to create a SageMaker notebook from
+any model it created. You can then check the
+Notebook to dive into details of the models
+implementations. If need be, you can
+refine the model and recreate it from the Notebook
+at any point in time. Amazon suggests that
+autopilot can be applied for a number of
+different use cases. For example, it can be used
+to predict future prices to help you make sound
+investment decisions based on your historical data, such as demand, seasonal trends, and the price of
+other commodities. Price predictions are
+particularly useful in the financial services
+sector to predict the price of stocks
+or real estate, to predict real estate prices, or energy and utilities to predict the prices of
+natural resources. Churn prediction
+can be useful in predicting the loss of
+customers or churn. Companies are always looking
+for ways to eliminate churn. Churn prediction works
+by learning patterns in your existing data and
+identifying patterns in the new datasets so
+that the model can predict which customers
+are most likely to churn. Another application
+is risk assessment. Risk assessment requires
+identifying and analyzing potential events that may
+negatively impact individuals, assets, and your company. Risk assessment models
+are trained using your existing datasets
+so that you can optimize the models
+predictions for your business. Next, let's discuss Microsoft Azure Automated
+Machine Learning. Microsoft Azure Automated
+Machine Learning aims to empower professional and
+non-professional data scientists to build machine
+learning models rapidly. It automates time-consuming and iterative task of
+model development, so basically it does AutoML. It starts with automatic
+feature selection, followed by model selection
+and hyperparameter tuning on the selected model to generate the most optimized model
+for the task at hand. You can either create your
+models using a no code UI or using code
+first notebooks. You can quickly
+customize your models, apply control settings
+to iterations, thresholds, validations,
+blocked algorithms, and other experimental criteria. It also provides tools to fully automate the feature
+engineering process. You can also easily
+visualize and profile your data
+to spot trends, as well as discover common errors and
+inconsistencies in your data. This helps you better understand the recommended actions and
+apply them automatically. It also provides intelligent stopping to save time
+on computing and prioritize the
+primary metric and subsampling to streamline experiment runs
+and speed results. It also has built-in support for experiment runs summaries, and detailed metrics
+visualizations to help you understand your models and
+compare model performance. Model interpretability helps
+evaluate model fit for raw and engineered features and provides insights into
+feature importance. You can discover patterns,
+perform what-if analysis, and develop deeper
+understanding of models to support transparency and
+trust in your business. Now, let's discuss
+Google Cloud AutoML, which you'll be using in
+the upcoming exercise. Google Cloud AutoML
+is a suite of machine learning products
+that enables developers with limited machine-learning
+expertise to train high-quality models specific
+to their business needs. It relies on Google, state of the art
+transfer learning and neural architecture
+search technologies. Cloud AutoML leverages
+more than 10 years of Google research to help your machine-learning
+models achieve faster performance and
+more accurate predictions. You can use Cloud AutoML, simple graphical user
+interface to train, evaluate, improve, and deploy
+models based on your data. You're really only a
+few minutes away from your own custom
+machine-learning model. Google's human
+labeling service can also put a team
+of people to work annotating or cleaning
+your labels to make sure that your models are being
+trained on high-quality data. Because different problems and different data need to
+be treated differently, Cloud AutoML isn't
+just one thing. It's a suite of
+different products, each focused towards particular
+use cases and data types. For example, for image data, there's AutoML Vision
+and for video data, there's AutoML Video Intelligence,
+for natural language, there's AutoML natural language and for translation,
+there's AutoML Translation. Finally, for general
+structured data, there's AutoML Tables. Some of these are broken
+down even further. For image data, for example, there's both vision and classification and
+Vision Object Detection. Then there are also
+Edge versions of both of these focused on optimizing for running inference
+at the edge in mobile applications
+or IoT devices. For video, there's both Video
+Intelligence classification and video object detection. Again, focused on these
+specific use cases. How do all three of these different Cloud services
+operate under the hood? Well, no one knows exactly or can't say if they work
+for a given provider. However, it is safe to assume
+that the algorithms at play will be similar to the ones that we've discussed
+in previous lessons. Also, keep in mind that ML
+Engineering for Production is a rapidly changing field and new technologies and developments
+emerge every few months. These new advancements are
+typically incorporated and exploited to their
+greatest extent by the AutoML providers. Also notice that these different AutoML
+offerings each perform the same operations that you perform or should perform
+as you train your model, including feature selection
+and feature engineering, and cleaning your labels. AutoML designers understand the importance
+of these activities.

@@ -1,0 +1,91 @@
+The Triton Inference Server, an offering from NVIDIA, simplifies deployment
+of AI models at scale in production. It's an open-source inference
+serving software that lets teams deploy trained AI models from any framework: TensorFlow, TensorRT, PyTorch, ONNX Runtime, or even
+a custom framework. You can deploy
+from local storage or from a Cloud platform, like the Google Cloud
+Platform or AWS, on any GPU or CPU-based
+infrastructure. It can be the Cloud, the data
+center, or even the edge. The Triton Inference Server
+runs multiple models from the same or different
+frameworks concurrently on a single GPU
+using CUDA streams. In a multi-GPU server, it automatically
+creates an instance of each model on each GPU. All of these increase your GPU utilization without any extra coding from the user. The Inference server supports low latency real-time
+inferencing with batch inferencing to maximize GPU and
+CPU utilization. It also has built-in support for streaming inputs if you want
+to do streaming inference. Users can use shared memory support
+for higher performance. Inputs and outputs need
+to be passed to and from Triton's Inference
+Server can be stored in the systems or the
+CUDA shared memory. This can reduce the HTTP C or gRPC overhead and increase
+overall performance. It also supports model ensemble. Triton Inference
+Server integrates with Kubernetes
+for orchestration, metrics, and auto scaling. Triton also integrates
+with Kubeflow and Kubeflow Pipelines for an
+end-to-end AI workflow. The Triton Inference
+Server exports Prometheus metrics for
+monitoring GPU utilization, latency, memory usage,
+and inference throughput. It supports the standard
+HTTP gRPC interface to connect with other
+applications like load balancers. It can easily scale to
+any number of servers to handle increasing inference
+loads for any model. The Triton Inference
+Server can serve tens or hundreds of models
+through the Model Control API. Models can be
+explicitly loaded and unloaded into and out
+of the Inference server based on changes made in the model control configuration to fit in a GPU or CPU memory. It can be used to serve
+models and CPU too. It supports heterogeneous
+cluster with both GPUs and CPUs and does help standardized inference
+across these platforms. During peak loads,
+it can dynamically scale out to any CPU or GPU. As well as TensorFlow Serving and the Triton Inference Server, another popular
+serving environment is TorchServe, designed
+around PyTorch. TorchServe is an
+initiative by AWS and Facebook to build a model serving framework
+for PyTorch models. Before the release
+of TorchServe, if you wanted to
+serve PyTorch models, you had to develop
+your own model serving solutions like custom
+handlers for your model, you had to develop
+a model server, maybe build your own
+Docker container. You had to figure
+out a way to make the model accessible
+via the network and integrated it with your
+cluster orchestration system and all of that good stuff. With TorchServe, you can deploy PyTorch models in either
+eager or graph mode. You can serve multiple
+models simultaneously. You can have version production
+models for A/B testing. You can load and unload models
+dynamically and you can monitor detail blogs and
+customizable metrics. Best of all, TorchServe
+is open source. Hence it's extensible to
+fit your deployment needs. The server architecture
+looks like this. The front end is responsible for handling your requests
+and your responses. It handles both requests
+and responses coming in from clients and the
+model life cycle. The back end users model
+workers that are running instances of the model
+loaded from a model store. They're responsible for
+performing the actual inference. You can see that
+multiple workers can be run simultaneously
+on TorchServe. They can be different
+instances of the same model or they could be instances of different models. Instantiating more instances
+of a model enables handling more requests at the same time and can increase the throughput. A model is loaded from cloud
+storage or from local hosts. TorchServe support serving of eager mode models and jet
+saved models from PyTorch. The server supports APIs for
+management and inference, as well as plugins for common
+things like server logs, snapshots, and reporting. As well as TF Serving, NVIDIA's Inference Server, and TorchServe, you may also want to look at
+Kubeflow Serving. There's a bit too much
+to go into detail here, but let's look at it briefly. Kubeflow also offers serving capabilities with
+Kubeflow Serving. This allows you to use
+a compute cluster with Kubernetes to have serverless inference
+through abstraction. It works with TensorFlow,
+PyTorch and others. I won't go into the
+detail on it here, but you can learn
+more about it at the URL provided in the
+additional readings. Now that you've
+seen how serving of machine learning models
+can be achieved, let's take a step
+back and explore scaling applications like these. You can understand
+the fundamentals of horizontal and
+vertical scaling. From there, you'll
+see how you can use virtualization, containers, and container orchestration
+to manage the serving of your apps at an
+appropriate scale using open-source services.

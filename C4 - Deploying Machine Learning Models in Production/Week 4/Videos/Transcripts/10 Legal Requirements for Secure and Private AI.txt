@@ -1,0 +1,127 @@
+A legal side to practicing
+responsible AI. They are already a
+legal requirements in some countries and regions, and this trend is growing. Exposure to civil liability
+is another concern. Let's explore some
+of the issues now. Training data, prediction
+requests, or both, can contain very sensitive
+information about people. For prediction request, those people are your users. Privacy of sensitive data
+should be protected. This includes not
+only respecting the legal and regulatory
+requirements, but also considering
+social norms and typical individual
+expectations. What safeguards do
+you need to put in place to ensure
+the privacy of individuals considering
+that ML models may remember or reveal aspects of the data that they've
+been exposed to? What steps are needed
+to ensure users have adequate transparency and
+control of their data? It's not just up to you to
+decide what is required. In Europe, for example, you need to comply with the General Data
+Protection Regulations, or GDPR, and in California, you need to comply with the California Consumer
+Privacy Act, or CCPA. The General Data Protection
+Regulation, or GDPR, was enacted by the EU in 2016 and became a model for many
+national laws outside the EU, including Chile, Japan, Brazil, South Korea,
+Argentina, and Kenya. It regulates the
+data protection and privacy in the European Union and the European Economic Area. The GDPR gives individuals control over their
+personal data and requires that companies
+should protect the data of employees
+and consumers. When data processing is based on consent, the data subject, usually an individual person, has the right to revoke
+their consent at any time. In California, Consumer
+Privacy Act, or CCPA, was modeled after the GDPR
+and has similar goals, including enhancing
+the privacy rights and consumer protections for
+residents of California. It states that users
+have the right to know what personal data is being
+collected about them, including whether
+the personal data is sold or disclosed in some way, who supplied their data and
+who received their data. Users can access
+the personal data which a company has for them, block the sale of their data, and request a business
+to delete their data. Security and privacy
+are closely linked for some problems or harms
+and machine learning. Informational harms are caused when information is allowed
+to leak from the model. There are at least
+three different types of informational harms, including membership
+inference, where an attacker can determine whether or not an individual's data was
+included in the training set. Model inversion, where the attackers
+actually able to recreate the training set, and model extraction, where an attacker is able to
+recreate the model itself. Behavioral harms are
+caused when an attacker is able to change the behavior
+of the model itself. This includes poisoning attacks, where the attacker
+is able to insert malicious data into
+the training set, and evasion attacks
+where the attacker makes small changes to
+prediction requests to cause the model to
+make bad predictions. It's important to defend
+your model against attacks, as well as ensuring privacy
+and security of user data. Let's discuss a few approaches for defending against attacks. You should consider privacy
+enhancing technologies such as Secure
+Multi-Party Computation, or SMPC, or Fully
+Homomorphic Encryption, or FHE, when training
+and serving your models. Briefly, SMPC enables
+multiple systems to collaborate securely
+to train and/or serve a model while
+keeping the actual data secure through the
+use of shared secrets. FHE, on the other hand, enables developers to
+train their models on encrypted data without
+decrypting it first. FHE in particular
+allows users to send an encrypted prediction requests and receive back an
+encrypted results. During the entire process, the data is never decrypted
+except by the user. However, you should be
+aware that currently, FHE is very
+computationally expensive. The goal here is that
+using cryptography, you can protect the
+confidentiality of your training data. Roughly, a model
+is differentially private if an attacker seeing its predictions cannot tell if a particular user's information was included in
+the training data. By implementing
+differential privacy, you can responsibly train
+models on private data. It provides provable
+guarantees of privacy, mitigating the risk of exposing
+sensitive training data. Let's briefly discuss
+three different approaches to implementing
+differential privacy. Differentially-Private
+Stochastic Gradient Descent , or DP-SGD, Private Aggregation of
+Teacher Ensembles or PATE, and Confidential and Private
+Collaborative learning, or CaPC. If an attacker is able to get a copy of a normally
+trained model, then they can use the weights to extract private information. Differentially-Private
+Stochastic Gradient Descent, or DP-SGD, eliminates that possibility by applying differential privacy
+throughout training. It does that by modifying the minibatch stochastic
+optimization process by adding noise. The result is a trained
+model which retains differential privacy because of the post-processing
+immunity property of differential privacy. Post-processing immunity is a fundamental property
+of differential privacy. It means that regardless of how you process the
+models predictions, you can't affect their
+privacy guarantees. Next, let's take a look at Private Aggregation of
+Teacher Ensembles, or PATE. PATE begins by dividing up sensitive data into k
+partitions with no overlaps. It then trains k models on that data separately
+as teacher models, and then aggregates the results in an aggregate teacher model. This is the same teacher-student used for knowledge distillation. During the aggregation for
+the aggregate teacher, you will add noise to
+the output in a way that won't affect the
+resulting predictions. All of these models and
+the sensitive data are not available to end users,
+including attackers. For deployment, you will
+create a student model. To train the student model, you'll take unlabeled
+public data and feed it to the aggregate
+teacher model. The output of this
+process is labeled data, which maintains privacy. You use this data as the training set for
+the student model. After training, you will discard everything
+on the left side of this diagram and deploy only
+the student model for use. Confidential and Private
+Collaborative learning, or CaPC, enables multiple developers
+using different data to collaborate to improve their model accuracy without
+sharing information. This preserves both privacy
+and confidentiality. To do that, it applies
+techniques and principles from both cryptography
+and differential privacy. This includes using
+Homomorphic Encryption, or HE, to encrypt the
+prediction requests that each collaborating model receives so that information in the prediction
+request is not leaked. It then uses PATE to add noise to the
+predictions from each of the collaborating
+models and uses voting to arrive at
+a final prediction, again, without
+leaking information. A great example of how CaPC can be used is to
+consider a group of hospitals who want to collaborate to improve each other's models
+and predictions. Because of healthcare
+privacy laws, they can't share
+information directly. But using CaPC, they can achieve better
+results while preserving the privacy and confidentiality
+of their patients.

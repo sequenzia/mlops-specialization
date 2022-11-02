@@ -1,0 +1,39 @@
+Yeah, let's go through a cold lab for
+building and deploying an extra boost model
+on the cloud AI platform. Let's do a walk through first on
+the google cloud platform console, scroll down until you see the AI. Platform entry from here,
+select dashboard and you'll be taken to the AI platform dashboard,
+select models from the list on the left. You may see that you need to
+enable the api to create a model, select that and wait for
+the progress to complete. Once it's done, find the compute engine
+entry in the left navigation menu and if it isn't enabled to be
+sure to enable it with this button it may take a while and
+have sped it up here. Once it's done, return to the AI
+platform entry in the navigation and find notebooks. Once it opens you'll see a list of
+notebooks and it's probably empty so go to new instance at the top, select python
+three, accept the default and hit create you'll see a new entry in the list and it
+may take a few moments before it's ready. I sped up the video here when it's done
+you'll see a link to open Jupiter lab, select it and the Jupiter environment
+will open up with a number of options, select the terminal option
+within the terminal. You can then pick three, install XG boost
+like this when it's done you can now open a new python three Notebook. The code lab will give you all this code
+so don't worry if you don't see it right now as you create the code and again it's
+in the cold lab which you'll see next. You can run it cell by cell, the first couple of cells allow
+you to inspect the data and as you run through you'll see how you
+can create an ex KGB regressive for this data which will give you predicted
+weights versus actual weights for babies. You can then save this model
+as a tensorflow saved model, the model can then be deployed to
+GCP nope that you have GCP project. And then the ID can be found by
+selecting your project at the top and finding it in the list of
+projects that you are. The motto bucket is a storage bucket
+that you can name with the model bucket variable. And after you make it you can see that
+you can copy the saved model to it, you can explore your cloud
+storage to find the bucket. And then within that you'll see
+the safe model running the G cloud AI platform models create, will create
+the AI platform model for you and G cloud AI platform versions create will
+deploy a version for you when it's done. You can then look at your models list and
+refresh it and you should see that
+the baby model is there. We have one version called V one and
+now we can write some simulated data to adjacent file and use
+the endpoint to get predictions for it. So now it's your turn try out the cold lab
+to see if you can repeat what I've done.

@@ -1,0 +1,81 @@
+There are also Cloud-based
+tools and services which can be very valuable for interpreting your model results. Let's look at one of these now, Google's AI
+Explanations service. Another option for
+interpretability is to leverage managed services
+from Cloud providers, such as Google's AI
+Explanations for AI Platform. AI Explanations integrates
+feature attributions into Google's AI Platform
+Prediction service. AI Explanations
+helps you understand your model's output for classification and
+regression tasks. Whenever you request a
+prediction on AI Platform, AI Explanations tells you
+how much each feature in the data contributed to
+the predicted results. You can then use this
+information to verify that the model is
+behaving as expected and identify any bias
+in your models and get ideas for ways to improve your model and
+your training data. Feature attributions indicate
+how much each feature contributed to the
+given prediction. AI Explanations works with Google's AI Platform
+Prediction managed service. When you request
+predictions from your model normally using AI
+Platform Predictions, you only get the predictions. However, when you
+request explanations, you get both the predictions and the feature attribution
+information for those predictions. There are also visualizations
+provided to help you understand the
+feature attributions. This chart shows an example of feature attributions
+for a tabular dataset. These are examples of the
+visualizations for image data. They include an overlay
+for each image, highlighting which
+pixels in the image contributed most strongly to
+the resulting prediction. AI Explanations currently offers three methods of
+feature attribution. These include sampled Shapley, integrated gradients, and XRAI. But ultimately, all of these methods are based
+on Shapley values. We've discussed Shapley enough that we don't need to
+go over that again. But let's look at the
+other two methods, integrated gradients and XRAI. Integrated gradients
+is a different way to generate feature
+attributions with the same axiomatic properties as Shapley values based
+on using gradients. It's orders of magnitude
+more efficient than the original
+Shapley-Shubik method when applied to deep networks. In the integrated
+gradients method, the gradient of the
+prediction output is calculated with respect to the features of the input
+along an integral path. The gradients are calculated
+at different intervals based on a scaling parameter
+that you can specify. For image data, imagine
+the scaling parameter as a slide that is scaling all the pixels
+of the image to black. By saying that the
+gradients are integrated, it means that they are
+first averaged together, and then the
+element-wise product of the average gradients and the original input
+is calculated. XRAI or eXplanation with Ranked Area Integrals is specifically focused towards
+image classification. The XRAI method extends the integrated
+gradients method with additional steps to
+determine which regions of the image contribute most
+to a given prediction. XRAI performs pixel-level
+attribution for the input image using the
+integrated gradients method. Independently, a pixel-level
+attribution XRAI also over-segments the image to create a patchwork
+of small regions. XRAI then aggregates the
+pixel-level attribution within each segment to determine the attribution density
+of that segment. It then ranks each segment and orders them from the most
+to the least positive. This determines which areas
+of the image are the most salient or contribute the most strongly to a
+given prediction. Here's an example of an
+image of hummingbirds. Starting at the left, the original image is both segmented into
+different regions and the pixel-level attributions are calculated using
+integrated gradients. The attributions within
+each region are then summed and the regions are
+ranked to determine the results which are
+the most important. As you can see in the
+image on the right, the most important parts of this image are the
+hummingbirds themselves. Well, that was quite a week. We got fairly deep into
+interpretability and explainability and looked at it from a couple of
+different angles. We looked at some intrinsically
+interpretable models. We looked at the ideas of local versus global
+interpretation. We looked at a few
+different post hoc methods, including Shapley values, which are very important
+for interpretability, and the SHAP library, which helps us work with them. We took a look at some
+of the newer methods too including T cab and
+lattice models. I thought it was a great week. I hope you did, and
+we'll see you next time.

@@ -1,0 +1,36 @@
+In addition to manually reducing the dimensionality
+of your datasets, you can also apply several
+algorithmic approaches to do dimensionality reduction. Let's look at some of those now. Let's look at techniques
+that you can use to reduce dimensionality
+automatically. First, let's build
+some intuition on how linear dimensionality
+reduction actually works. In this approach,
+you linearly project n-dimensional data onto a smaller k-
+dimensional subspace. Here, k is usually much
+smaller than n. There are infinitely many
+dimensional subspaces that we can project data onto. Which subspace do we choose? To understand how
+sub-spaces are chosen. Let's take a step
+backwards and look how one can project
+data onto a line. To start, let's
+think of features as vectors existing in a
+high-dimensional space. Visualizing them would reveal a lot about the distribution of the data though
+it's impossible for us humans to see so many
+dimensions all at once. Instead, you need to project the data onto a lower dimension, which might allow you to visualize the data
+more directly. This projection is
+called an embedding. Computing this requires
+taking each sample and calculating a single
+number to describe it. A benefit of reducing to
+one-dimension is that the numbers and the examples
+can be sorted on a line. In this example, we're taking images and reducing
+the information they contain to
+just one-dimension their average pixel brightness, which we can then visualize
+as a point on a line. Coming back to subspaces, there are several ways to choose these
+k-dimensional subspaces. For example, in a
+classification tests, you typically want to have the maximum separation
+among classes. Linear discriminant
+analysis, or LDA, generally works well for that. For regression, you
+want to maximize the correlation between the projected data
+and the output, where Partial least squares, or PLS, works well. Finally and unsupervised tasks, we typically want
+to retain as much of the variance as possible. Principal component
+analysis, or PCA, is the most widely used
+technique for doing that.

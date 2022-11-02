@@ -1,0 +1,49 @@
+Welcome back. We have a lot of great stuff to
+talk about this week. First, we're going to start with a discussion of
+hyperparameter tuning, and we'll do an exercise
+using Keras Tuner. Then we'll dive into AutoML, and really look to try to
+understand it at some depth. Then we'll actually do an exercise using
+AutoML on the Cloud. It's going to be fun.
+Let's get started. We'll get started with
+neural architecture search. We'll start with a discussion of something that you might be more familiar with,
+hyperparameter tuning. As I think you'll see there
+are similarities between hyperparameter tuning and
+neural architecture search. Neural architecture
+search, or NAS, takes a prominent role in
+recent ML developments. In essence, it's a technique for automating the design
+of neural networks. Models found by NAS are
+often on par with or outperform hand
+designed architectures for many types of problem. The goal of NAS is to find
+the optimal architecture. Keep in mind that
+modern neural networks cover a huge parameter space. Automating the search
+with tools like AutoML makes a lot of sense. Before taking a deep
+dive into AutoML, let's understand the problem it solves by analyzing one of the most tedious processes in ML modeling you've done naively, which is hyperparameter tuning. In machine learning models, there are two types
+of parameters. There are model parameters. Those are parameters
+that the model must learn using the training set. They're fitted or trained
+parameters of our models. Usually that means
+weights and biases. Then we have hyperparameters. These are adjustable
+parameters that must be tuned in order to create a model with optimal
+performance, but unlike model parameters, hyperparameters are
+not automatically optimized during the
+training process. They need to be set before
+model training begins, and they affect how
+the model trains. Hyperparameter tuning can have a high impact on
+model performance, and unfortunately, the
+number of hyperparameters can be substantial
+even for small models. For instance, in a shallow DNN, you can make
+hyperparameter choices for architecture options, for activation functions, for weight
+initialization strategy, and optimization
+hyperparameters, and others. Performing manual
+hyperparameter tuning can be a real brain teaser, which is a nice way to put it, since you're going to need
+to keep track of what you've tried and launch
+different experiments, so a manual process
+like that is tedious. Nonetheless, when done properly, hyperparameter tuning helps boost model performance
+significantly. Several open source
+libraries have been created using various approaches
+to hyperparameter tuning. The Keras team has released
+one of the best, Keras Tuner, which is a library
+to easily perform hyperparameter tuning
+with TensorFlow 2.0. It offers a variety of
+different tuning methods, including random search, Hyperband, and
+Bayesian optimization. Let's take a look at a concrete example
+in the next video.

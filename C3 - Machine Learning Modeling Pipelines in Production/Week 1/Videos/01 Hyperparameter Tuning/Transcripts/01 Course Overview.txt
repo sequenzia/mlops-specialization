@@ -1,0 +1,39 @@
+Welcome to this third course in the Machine Learning
+Engine for Production in MLOps specialization. The first course have
+presented an overview of the entire machine learning
+project life cycle. In the second course, you saw data pipelines for
+production machine learning. This third course is about
+building and maintaining models for different
+serving environments. The modules covered
+in this course, will tightly integrate with the data pipelines you
+built in the second course. I'm thrilled to reintroduce this course's instructor
+Robert Crowe, who is TensorFlow Developer
+Engineer at Google and one of the world's
+experts in MLOps. Thanks, Andrew. This course focuses on implementing
+tools and techniques to effectively manage your
+modeling resources and best serve batch and real-time
+inference requests. In this course, you'll implement effective search strategies
+for the best model that will scale for various
+serving needs while constraining model complexity
+and hardware requirements. You'll optimize and manage
+this compute storage and IO resources your model needs in production environments
+during its life cycle. In this journey, you
+will continue to use the TFX library and rely on tools like AutoML for finding the best suitable model and TensorFlow model analysis
+to address model fairness, explainability issues,
+and mitigate bottlenecks. Along the way, you'll learn about more specialized
+scenarios like dimensionality reduction
+and pruning to manage your model
+resources wisely. Also, you'll be exploring
+pipelining and parallelism and high-performance
+ingestion to make the most of your
+computational resources. A Production ML system
+must run nonstop, at the minimum cost while producing the
+maximum performance. In this course, you'll learn how to use
+well-established tools and methodologies for doing all of this effectively
+and efficiently. Thanks Robert, I'm
+excited about this. Anyone that masters these
+techniques will be much more effective at building production machine
+learning systems, and also be well-equipped
+to promptly address any explainability and fairness
+issues that may arise. With that, let's dive into
+building model pipelines.

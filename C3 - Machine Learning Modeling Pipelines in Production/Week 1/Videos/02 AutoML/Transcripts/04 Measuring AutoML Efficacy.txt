@@ -1,0 +1,46 @@
+Neural architecture search relies on
+being able to measure the accuracy or effectiveness of the different
+architectures that it tries. This requires a performance
+estimation strategy. Let's talk about that now. The search strategies in neural
+architecture search need to estimate the performance of
+generated architectures so that they can generate
+architectures that perform better. Let's discuss some of the performance
+estimation strategies which are used in neural architecture search. The simplest approach is to measure the
+validation accuracy of each architecture that is generated like we saw with
+the reinforcement learning approach. This becomes computational heavy,
+especially for large search spaces and complex networks. And as a result, it can take
+several GPU days to find the best architectures using this approach,
+that makes it expensive and slow. It also makes neural architecture
+search impractical for many use cases. Is there a way to reduce
+performance cost estimation? Several strategies have been proposed,
+including lower fidelity estimates, learning curve extrapolation, and
+weight inheritance or network morphism. Let's discuss each of these. Lower fidelity or
+lower precision estimates try to reduce the training time by reframing
+the problem to make it easier to solve by training on a subset of data or
+using lower resolution images, for example, or using fewer
+filters per layer and fewer cells. It greatly reduces the computational cost,
+but ends up underestimating performance. That's okay if you can make sure
+that the relative ranking of the architectures does not change due
+to their lower fidelity estimates. But unfortunately, recent research has
+shown that this is not the case, bummer. What else can we try? Learning Curve Extrapolation is based
+on the assumption that you have mechanisms to predict the learning
+curve reliably, and so extrapolation is a sensitive and
+valid choice. On the right there are learning curves for
+different architectures. Based on a few iterations and available
+knowledge, the method extrapolates the initial learning curves and terminates
+all architectures that perform poorly. The progressive neural
+architecture search algorithm, which is one of the approaches for
+neural architecture search, uses a similar method by
+training a surrogate model and using it to predict the performance
+using architectural properties. Another method for speeding up
+architecture search initializes the weights of novel architectures based
+on the weights of other architectures that have been trained before, similar
+to the way that transfer learning works. One way of achieving this is
+referred to as network morphism. Network morphism modifies the architecture
+without changing the underlying function. This is advantageous because
+the network inherits knowledge from the parent network, which results in methods that require only
+a few GPU days to design and evaluate. This allows for increasing the capacity
+of network successively and retaining high performance without
+requiring training from scratch. One advantage of this approach
+is that it allows for search bases that don't have an inherent
+upper bound on the architecture's size.

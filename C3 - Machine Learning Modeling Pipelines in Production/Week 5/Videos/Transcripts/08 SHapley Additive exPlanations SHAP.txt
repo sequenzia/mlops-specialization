@@ -1,0 +1,43 @@
+Now let's take a look at the open source
+Shap library, which is a powerful tool for working with sharply values and
+other similar measures. Shapp, which is short for
+shapely additive explanations, is a game theoretic approach to explain
+the output of any machine learning model, which makes it model agnostic. It connects optimal credit
+allocation with local explanations. Using the classic sharply values from
+game theory and their related extensions, which have been the subject
+of several recent papers. Remember that shapely created
+his initial theory in 1951 and more recent researchers have
+been extending his work. It assigns each feature and
+importance value for a particular prediction and
+includes some very useful extensions, many of which are based on
+this recent theoretical work. These include tree explainer,
+high speed exact algorithm for tree ensembles, deep explainer,
+high speed approximation algorithm for chef values in deep learning models,
+gradient explainer, which combines ideas from
+integrated gradients, Shap and smooth grad into a single
+expected value equation, and Colonel explainer,
+which uses especially waited local linear regression to estimate Shap values for
+any model. It also includes several plots
+to visualize the results, which helps you to interpret the model. You can visualize shapely
+values as forces. Each feature value is a force that either
+increases or decreases the prediction. The prediction starts from the baseline,
+which for sharply values is the average
+of all the prediction. In a force plot, each shapely value
+is displayed as an arrow that pushes the prediction to increase
+positive values shown here in red or decrease negative values
+shown here in blue. These forces meet at the prediction
+to balance each other out. A summary plot combines feature
+importance with feature effects. Each point on the summary
+plot is a shapely value for a feature and an instance. The color represents the value of
+the feature from low blue to high red, overlapping points are deterred
+in the y axis direction. So we get a sense of the distribution
+of sharply values per feature and features are ordered according
+to their importance. So in this example we can quickly see
+that the two most important features are day and hour in a shop dependence,
+flatter a feature value is plotted on the x-axis and
+the shop value plotted on the y-axis. From the plot in this example, you can
+see that the correlation between our and the Lok 15 temperature feature is low. In this example, in the early hours
+of the morning, right after midnight, the energy price drops during
+the afternoon hours between 10 and 12, the price increases, and
+then drops back down after three. Then the price again increases
+at night after 8 O'clock.

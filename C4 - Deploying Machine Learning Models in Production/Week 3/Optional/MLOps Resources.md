@@ -1,0 +1,2 @@
+MLOps Resources
+If you want to learn more about MLOps check this [blog](https://neptune.ai/blog/mlops-what-it-is-why-it-matters-and-how-to-implement-it-from-a-data-scientist-perspective) out, and visit this curated [list](https://github.com/visenger/awesome-mlops) of references  for more information, ideas, and tools.

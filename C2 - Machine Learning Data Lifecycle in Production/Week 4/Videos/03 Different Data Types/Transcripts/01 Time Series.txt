@@ -1,0 +1,101 @@
+Now, let us look at a time series
+problem using data from sensors. First, let us briefly mention some
+different types of data depending on the problem that you are working
+on in the data that you have. You might be working with different types
+of data, each of which require different pre processing and in some cases
+different modeling techniques. For example,
+you might be working with images or video or text or audio or
+time series data. There are too many different types of data
+like this to discuss thoroughly in this class. So we have provided some
+optional materials for you to explore some of these on your own. There is an optional notebook to work
+with for the CFR tend image data set, and there's two other notebooks
+to work on with time series data. One data is on weather data and the other
+contains data from an accelerometer, and other sensors available
+on most cell phones. Of all the data types listed here, time series is probably the one that most
+developers are the least familiar with. So let us get started by reviewing
+the key aspects of time series. Time series are a sequence of data
+points in time, often from recorded events where the time dimension
+indicates when the event occurred. They may or
+may not be ordered in the raw data, but you almost always want them to be
+in order by time for modeling. We want to predict the value
+in a typical situation. We want to predict
+the value of why at time t sometime in the future based
+on previous measurements. The goal is to train a model that predicts
+future outputs with acceptable accuracy. Carl Christian Steinicky pointed out
+that it's difficult to make predictions, especially about the future. The corollary to this of course is
+that it is relatively easy to make predictions about the past
+since that is already happened. I do not know about you but
+I tend to find that is true. Time series forecasting does exactly
+that it tries to predict the future. It does it by analyzing
+data from the past. This requires time index data for example, to predict future temperature
+at a given location. We could use other meteorological
+variables such as atmospheric pressure, wind, direction and velocity, et cetera, that have been recorded previously
+at some time in the past. Let us look at a concrete example
+of making weather predictions. In this example, you are going to be
+working with a time series data set that was recorded by the MAX Plank
+Institute for bio geochemistry. This dataset contains 14 different
+features including air temperature, atmospheric pressure and humidity. They were recorded every 10
+minutes beginning in 2003. Your job is to pre process
+the features with the TF X pipeline, and convert the data into time sequences. This format is required to
+train recurrent neural networks such as long,
+short term memory models or L S D M s. Let us take a closer look at how
+the data is organized and collected. There are 14 variables, including
+measurements related to humidity, wind, direction and velocity,
+temperature and atmospheric pressure. The target for
+prediction is the Temperature. The sampling rate is one
+observation every 10 minutes. So, you have six observations per hour and
+100 and 44 in a given Day. In other words, six times 24. These are plots for
+a few of the features over time, and the target variable T,
+which is temperature. You can see that there is a pattern
+to this which repeats over specific intervals of time. There is clear seasonality here, which we need to consider when doing
+feature engineering for this data. We should consider doing
+seasonal decomposition, but to keep things simple in this example,
+we would be doing that. The data exhibits clear periodicity or
+seasonality, which in this case is actually most likely due to the typical
+seasonal progression over the year. But remember seasonality as
+a characteristic of data often has nothing to do with
+the actual seasons of the year. It is really about periodicity. Using a windowing strategy to look at
+dependencies with the past data seems a natural past the take. And luckily DFX has this functionality
+already built in in the notebook. You will see that
+the window function of T F. Data and we'll use that to group
+the data set into windows. So let us see exactly
+how this actually works. Using weather data as an example. Windowing strategies in time series
+become pretty important, and they are kind of unique to time series and
+similar types of sequence data. In this example, you have a model
+that you can use to make a prediction one hour into the future and
+given a history of six hours, we will use a sliding window with a window
+size of six and an offset of one. So the total window sizes 7, 6 plus one. In another example, suppose you
+make a prediction 24 hours into the future given 24 hours of history. So that in that case
+your history size is 24, the offset size is also 24. So you could use a total window
+size of 48 which would be the history plus the output offset. It is also important to
+consider when now is, and not include data in the future which
+is referred to as time travel. In this example, if now is at T
+equals 24 then we need to be careful not to include the data from T equals
+25 2 T equals 47 in our training data. We could do that in feature engineering or by reducing the window to include
+only the history and the label. Let us talk about the sampling strategy. You already know that there
+are six observations per hour. In our example,
+one observation Every 10 minutes in a day, there is going to be 144 observations. If you take five days of
+past observations and make a prediction six
+hours into the future. That means that our
+history size will be five times 144 or 720 observations, and the output offset will be 12 times six or
+72. So the total window size
+in time is 792 since observations in an hour
+are unlikely to change too much. Let us sample one observation per hour. So instead of one every 10 minutes
+we are going to go to one per hour. So say we could take the first observation
+in the hour as the sample or even better. You can take the median of
+the observations in each our then our history size becomes
+five times 24 times one or 120 and our output offset will be six. So our total window size becomes 126. So we have reduced the size
+of our feature vector from 792 To 126 by either
+sampling within each hour or aggregating the data for
+each hour by taking the median. So I know the numbers might be
+a little confusing here, but the important point is to think about how
+we are treating the data in our window. So what will you do in
+the optional notebook? Well, in that notebook, you are going to
+start with pre processing the weather, time series data set using TFX. And you will use
+TF.data.dataset Stop Window to create the windows that you will be
+using to build your examples, and you'll save the transform and
+pre processed data in TF record format. And finally, you will create training and
+test data sets in a way that the features can be easily used to train an L S t
+M model using either tensor flow or keras with windowing strategies or
+in some other framework. The training is not implemented
+in the notebook since we are focusing on the data itself.

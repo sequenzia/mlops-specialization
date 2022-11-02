@@ -1,0 +1,72 @@
+We saw in the previous lesson
+that when deploying a model to production environment, we might
+have some decisions to make in order to maximize throughput while
+minimizing latencies and cost. Let's now look at some of
+the issues with resource costs and some constraints that we might encounter. There are good reasons why models often
+become complex in an effort to find ways to increase accuracy or
+model more complex relationships. There is a natural impulse to imply more
+complex model architectures including more and more features. And this often results in longer
+prediction latencies and but hopefully a boost in prediction accuracy. However, as models become more complex and
+more and more features are included. The resource requirements increase for
+every part of the training and serving infrastructure, increased resource
+requirements means increased costs. And increased hardware requirements
+management of larger model registries and this results in a higher support and
+maintenance burden. As in many things in life,
+the key is to find the right balance, finding that right
+balance between cost and complexity is a skill that seasoned
+practitioners will build up over time. So there's a trade off between
+the model's predictive effectiveness and the speed of its prediction latency. Depending on the use case,
+you need to decide on two metrics. There's the model's optimizing metric
+which reflects the model's predictive effectiveness and this includes things
+like accuracy, precision, recall, and so on. Good values in these metrics is a strong
+signal about the quality of your model. And then there's the models gating
+metric and this reflects an operational constraint that the model has to satisfy,
+such as prediction latency. So for example, you might set a latency
+threshold to a particular value, such as 200 milliseconds and any model that doesn't meet this
+threshold is not going to be accepted. Another example of a gating
+metric is the size of the model. If you plan on deploying a model too
+low spec hardware like mobile and embedded devices,
+this is of course very important. One approach you can take is to specify
+the serving infrastructure, CPU, GPU and all that. And then start increasing your model
+complexity to improve your model's predictive power until you hit one or more of your gating metrics
+on that infrastructure. Then you can assess the results and
+either accept the model as it is or work to improve accuracy and or
+reduce complexity or make the decision to increase the specifications of
+the serving infrastructure. One of the factors to consider
+when designing your server and training infrastructure is the use of
+accelerators such as GPUs and TPUs. Now, each of these have different
+advantages but they also have costs and potentially limitations. GPUs tend to be optimized for
+parallel through pot and they are often used in
+training infrastructure. While TP use as well as being useful
+in training have advantages for large complex models and large batch
+sizes, especially during inference. These decisions can have a significant
+effect on your projects budget. So there's also a trade off between
+applying a large number of less powerful accelerators and using a smaller
+number of more powerful accelerators. Often when working with a team or
+department, these choices will need to be made for
+a broad range of models. And not just for the new model that you're
+working on at this moment because there are always going to be shared resources. The prediction request to your ML model
+might not provide all of the features required for prediction. Some of the features may also need
+to be pre computed or aggregated and then read in real time from a data store. Take for example of food delivery app that
+needs to predict the estimated time for an order delivery. Well this is based on a number of
+features like current traffic conditions. There are also some that can be read
+from a data store like the list of incoming orders, the number of outstanding
+orders per minute in the last hour, and stuff like that. You'll need powerful caches to retrieve
+this data with low latency since the delivery time has to
+be updated in real time. You cannot wait many seconds for
+retrieving data from the database. And of course this has cost implications. NoSQL or NoSQL databases are a good
+solution to implement caching and feature look up. And there are various options available. If you need sub millisecond read latency
+on a limited amount of quickly changing data retrieved by a few 1000 clients. One good choice is
+Google Cloud Memorystore, it's a fully managed version
+of latency in mem cache. And of course there were also
+very good open source options. If you need millisecond read latency on
+slowly changing data where the storage scales automatically,
+one good choices Google Cloud Firestore. If you need millisecond read
+latency on dynamically changing data using a store that can scale
+linearly with heavy reads and writes, one good choice of course
+is Google Cloud Bigtable. Amazon's DynamoDB is
+also a good choice for scalable low read latency
+database with an in memory cache. Adding caches speeds up feature, look up while reducing
+prediction retrieval latency. You have to carefully choose from
+the different available offerings based on your requirements and then balance
+that with your budget constraints.

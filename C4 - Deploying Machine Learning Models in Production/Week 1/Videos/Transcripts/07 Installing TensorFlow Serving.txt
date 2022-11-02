@@ -1,0 +1,102 @@
+Now that you've seen deploying
+to the Cloud AI platform, you might also want to explore what it would take to deploy to your own infrastructure and the open-source
+TensorFlow Serving is an ideal solution to that. In the next few
+minutes, we're going to explore how to train a simple model and
+then deploy and serve it so that you can
+do remote inferences. You'll use the Google
+Colab environment that runs on Linux. Pretty much everything
+that you see here you could do on your own server. There are several
+ways to install TensorFlow Serving depending on your needs and your environment. The easiest and most
+straightforward way of using TensorFlow Serving
+is with Docker images. I highly recommend this
+route unless you have specific needs that are not addressed by running
+in a container. Here's a tip, this is
+also the easiest way to get TensorFlow Serving
+working with GPU support. You can also use
+TensorFlow Serving using one of the two
+available binaries, the first is simply called
+TensorFlow-model-server. This is a fully optimized
+server that uses some platform specific compiler
+optimizations like SSE4 and AVX instructions. This should be the preferred
+options for most users, but it may not work on
+some older machines. For those, you can use a package called
+TensorFlow-model-server-universal. This has been compiled
+with basic optimizations, but it doesn't include platform specific
+instruction sets, so it should work on most, if not all machines out there. You can use this
+one if TensorFlow model server does
+not work for you. Note that the binary name is
+the same for both packages. If you've already installed
+TensorFlow model server, you should first
+uninstall it using the apt-get remove TensorFlow
+model server command. You can also build
+TensorFlow Serving from source if you want to fully
+customize it for your needs. Please refer to
+the documentation for instructions on this. On Debian based Linux, you can install using Aptitude
+with the apt-get command. That's what you'll be
+doing in this example. In the Colab environment
+provided you'll use Aptitude since the VMs that Colabs
+run on are Debian based,. Let's get ready to install
+TensorFlow Serving using Aptitude since this Colab
+runs in a Debian environment. You'll add the TensorFlow
+model server package to the list of packages that
+Aptitude knows about. Note that in Colab you're
+going to be running as root. To install TensorFlow Serving, use apt-get install to install the TensorFlow
+model server package. That's all you need, just
+that one command line. Now, let's take a
+look at training a simple computer vision model
+using the MNIST dataset. We'll then serve that for inference using
+TensorFlow Serving. The MNIST dataset
+contains 70,000 grayscale images
+of the digit 0-9. These images show individual
+digits at a low resolution, 28 by 28 pixels. Even though these
+are really images, we're going to load
+them as NumPy arrays and not as binary image objects. We're not dealing with JPEGS or bitmaps or PNGs or
+anything like that. For model training, it's
+important to re-scale the pixel intensities
+into the range of 0-1, and we call this
+process normalization. Next, we'll reshape the
+training set to be an array of 60,000 by 28 by 28 by 1. Similarly we'll reshape
+the test set to be an array of size 10,000
+by 28 by 28 by 1. The one here is just the size of the color depth of the pixel because they're just grayscale, we don't need three channels,
+red, green, and blue. We can print it out now just
+to check that it's all good. Before moving forward, it's always important to
+inspect your data. Here we'll visualize one example from the dataset
+and feel free to change the value of IDX to
+visualize other examples. Now let's build a
+tf.keras.sequential model that can be used to classify the images of the MNIST dataset. We're going to use
+a very simple CNN. Make sure that your model has the correct input shape and the correct number
+of output units. We'll also use softmax for activation in the output layer. Here, you set your model up for training using the
+Adam optimizer, sparse categorical cross
+entropy as the loss, and accuracy for your metrics. You'll then train the model for the given number of epochs by fitting the training images
+to the training labels. The history object will contain the epoch by epoch
+metrics for the training. Now we can look at the loss and accuracy on the test
+set after training, and it's not bad, especially
+for such a simple model. For TensorFlow
+Serving to be able to access the model you
+need to save it. To do this, you'll use
+the saved model format. This code will
+save it for you in the directory stored in
+the MODEL_DIR variable. To let another process such as TensorFlow Serving know
+where the model is saved, you can use an
+environment variable. Here you create one for the model there that
+you just wrote. With TensorFlow
+Serving installed, you launch it with
+a bash script. Then you use the
+following parameters to configure the model server. The rest_api port is the port that requests
+will be handled on, and in this case it's 8501. The model name is the name
+that your model's going to use within the URL and we're
+using digits model here. The model_base_path should
+use the environment variable modeled here as the base path to
+the saved model. To send requests for prediction
+using our saved model, you can use JSON. Here you see we
+create a JSON object using the first few
+images of the test set. We'll then send a
+predict request as a post to the servers rest endpoints and you'll pass this a JSON object containing
+our request data. By default, the server will use the latest version
+of your model, but you could specify a particular version
+if you needed to here, perhaps for testing
+or if you want to AB test across multiple users. Note the digits
+model in the URL, and that's the name that we
+used in the previous step. If you want to plot the results, you can do so with
+code like this. Note that if the prediction for a value is the same
+as for the label, we'll plot it in green, otherwise we'll do it in red. Here's the results. Not bad.

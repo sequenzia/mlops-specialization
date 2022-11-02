@@ -1,0 +1,179 @@
+Accelerators are a key part of high-performance
+modeling, training, and inference, but accelerators
+are also expensive, so it's important to
+use them efficiently. That means keeping them busy, which requires you
+to supply them with enough data fast enough. That's why high-performance
+ingestion is important in
+high-performance modeling. Let's discuss that now. Let's discuss why input
+pipelines are often needed for training models and the issues around applying
+transformations on data. Generally, transformations
+deal with pre-processing tasks that tend to add overhead to your training input pipeline. For example, when augmenting huge image
+classification datasets, many of these
+transformations are often applied element wise. As a result, if it takes too long to apply transformations, this can lead to the CPU
+being underutilized while it waits for data and it's not just limited
+to the transformations. At times, you could
+have data that simply cannot fit into memory and it often becomes a
+challenge to build a scalable input data pipeline that will feed your data fast enough to keep your
+training processors busy. In the end, the goal should be to efficiently
+utilize the hardware available and reduce the time required to load the
+data from the disk, and also reduce the time
+required for pre-processing it. Input pipelines
+are important part of many training pipelines, but there are often
+similar requirements for inference pipelines as well. In the larger context of a training pipeline such as
+a TFX training pipeline, a high-performance
+input pipeline would be part of the trainer
+component and possibly other components
+like Transform that may need to do quite
+a bit of work on the data. There are many ways to design an efficient input pipeline. One framework that can help is TensorFlow data or tf.data. Let's consider TF
+data as an example of how to design an
+efficient input pipeline. You can view input pipelines
+as an ETL process, providing a framework to facilitate applying
+performance optimization. The 1st step involves
+extracting data from data stores that may be
+either local or remote, like hard drives, SSDs, cloud storage, and HDFS. In the 2nd step, data often needs to
+be pre-processed. This includes shuffling,
+batching, and repeating data. The way you order these
+transformations may have an impact on your
+pipelines performance. This is something that you
+need to be aware of when using any data transformation
+like map or batch or shuffle or
+repeat, and so forth. You then load the pre-processed
+data into the model, which may be training on a GPU
+or TPU and start training. A key requirement for high-performance
+input Pipelines is to parallel processing of data across the various
+systems to try to make maximum efficient use of
+the available compute, IO, and network resources. Especially for more
+expensive components such as accelerators, you want to keep them
+busy as much as possible. Let's look at a typical
+pattern that is easy to fall into and one that you
+really want to avoid. In this scenario, key
+hardware components, including CPUs and
+accelerators sit idle, waiting for the previous
+steps to complete. If you think about it,
+ETL, extract, transform, and load is a good mental
+model for data performance. Now, to give you some intuition on how
+pipelining can be carried out, each of the different
+phases of ETL use different hardware
+components in your system. Your extract phase is
+exercising your disk, your network for your loading
+from a remote system. Transform typically happens on the CPU and can be
+very CPU hungry. The load phase is
+exercising the DMA, or direct memory
+access subsystem and the connections
+to your accelerator, probably a GPU or TPU. Now, this is a much
+more efficient pattern than the previous one, although it's still
+not quite optimal. In practice, this pattern may be difficult to optimize
+further in many cases. As this diagram shows by
+parallelizing operations, you can overlap the
+different parts of ETL using a technique known as
+software pipelining. With software pipelining, you're extracting data for step 5, while you're
+transforming for step 4, and while you're loading data
+for step 3, and finally, your training for step
+2 all at the same time. This results in a
+very efficient use of your compute resources. As a result, your
+training is much faster and your resource
+utilization is much higher. Notice that now there
+are only a few instances where your hard drive and CPU
+are actually sitting idle. Through pipelining your
+training procedure, you can overcome CPU
+bottlenecks by overlapping the CPU pre-processing and model execution of accelerators. While the accelerator
+is busy with training the model
+in the background, the CPU starts preparing data
+for the next training step. You can see there's a
+significant improvement in model training time
+when using pipelining. While you can still
+expect some idle time, it's greatly reduced
+by using pipelining. How do you optimize your
+data pipeline in practice? There are a few basic
+approaches that could potentially be used to
+accelerate your pipeline. Prefetching, for
+example, where you begin loading data for the next step before the current
+step completes. Other techniques
+involve parallelizing data extraction and
+transformation. Caching the dataset to
+get started with training immediately once a
+new epic begins, is also very effective
+when you have enough cash. Finally, you need to
+be aware of how you order these optimizations
+in your pipeline, to maximize the
+pipelines efficiency. With prefetching, you
+overlap the work of a producer with a
+work of a consumer, while the model is
+executing step as, the input pipeline is reading
+the data for step S plus 1. This reduces the total time it takes for a step to either train the model or extract data from disk, whichever is highest. The tf.data, API, provides the tf dataset prefetch
+transformation. You can use this to decouple the time when data is produced, from the time when
+the data is consumed. This transformation uses
+a background thread and an internal
+buffer to prefetch elements from the
+input dataset ahead of time before they are requested. Ideally, the number of elements to prefetch
+should be equal to, or possibly greater than, the number of batches consumed
+by a single training step. You can either manually
+tune this value, or set it to tf data
+experimental autotune, as in this example, which will configure
+the tf data runtime, to optimize the value
+dynamically at runtime. In a real-world setting, the input data may
+be stored remotely, for example, on GCS or HDFS. A dataset pipeline that works well when
+reading data locally, might become bottlenecked on Io when reading data remotely, because of the following
+differences between local and remote storage. Time=to-first-byte.
+Reading the first byte of a file from remote storage, can take orders of
+magnitude longer, than from local storage. Read throughput. Again, while remote storage typically offers large
+aggregate bandwidth, reading a single
+file might only be able to utilize a small
+fraction of this bandwidth. To reduce data
+extraction overhead, the tf data dataset
+interleave transformation is used to parallelize
+the data loading step, including interleaving
+contents of other datasets. The number of datasets
+to overlap as specified by the cycle
+length argument, while the level
+of parallelism is set with the num
+parallel calls argument. Similar to the prefetch
+transformation, the interleaved
+transformation supports tf data experimental auto-tune, which will delegate the
+decision about what level of parallelism to use for
+the tf data runtime. When preparing data, input elements may need
+to be preprocessed. For example, the tf data, API, offers the tf data dataset
+map transformation, which implies a
+user-defined function to each element of
+the input dataset. Element-wise
+preprocessing can be parallelized across
+multiple CPU cores. Similar to the prefetch and
+interleaved transformation, the map transformation provides the num parallel
+calls argument to specify the level
+of parallelism. Choosing the best value
+for the num parallel calls argument depends
+on your hardware, the characteristics
+of your training data such as size and shape, the cost of your map function, and what other processing is happening on the CPU
+at the same time. A simple heuristic is to use the number of
+available CPU cores. However, as with prefetch
+interleave transformations, the map transformation
+in tf data supports the tf data experimental
+autotune parameter, which will delegate the
+decision about which level of parallelism to use
+for the tf data runtime. Let's see what happens
+when you apply pre-processing in parallel
+on multiple samples. Here, the preprocessing
+steps overlap, reducing the overall time
+for a single iteration, this can potentially
+be a big win. Here, you implement the same
+preprocessing function, but apply it in parallel,
+on multiple samples. Tf data dataset includes the
+ability to cash a dataset, either in memory or
+on local storage. In many instances, caching is advantageous and leads to
+increased performance. This will save some operations, like file opening
+and data reading, from being executed
+during each epic. When you cache a dataset, the transformations
+before caching, like file opening
+and data reading, are executed only
+during the first epic, the next epics, we'll
+re-use the cache data. Let's consider two
+scenarios for caching. If the user-defined
+function passed into the map transformation
+is expensive, then it makes sense to apply the cache transformation
+after the map transformation, as long as the
+resulting dataset can fit into memory
+or local storage. On the contrary, if the
+user-defined function increases the space required to store the dataset beyond
+the cache capacity, either apply it after
+cash transformation, or consider
+pre-processing your data before your training job, to reduce resource requirement.

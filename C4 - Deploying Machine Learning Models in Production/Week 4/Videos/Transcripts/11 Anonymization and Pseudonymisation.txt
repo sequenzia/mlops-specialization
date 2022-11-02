@@ -1,0 +1,41 @@
+Anonymization and pseudonymisation are some of the most well
+established ways of protecting privacy. So let's discuss them now, the GDP are includes many regulations
+to preserve privacy of user data and includes the definitions of
+many of the terms that it uses. This includes two terms that I'll discuss
+now anonymization and pseudonymisation. Anonymization removes personally
+identifiable information or P II from data sets so that people who the data describes
+remain anonymous for the GDPR. Recital 26 defines acceptable data
+anonymous station to be irreversible and done in such a way that is
+impossible to identify the person. It's impossible to derive insights or discrete information even by the party
+responsible for anonymization. Once data has been
+acceptably anonymous sized, the GDP are no longer
+applies to that data. Pseudonymisation is a bit different. This is a reversible process,
+meaning that it's still possible to identify the individual if the right
+additional information is included. Pseudonymisation can be
+implemented with data masking or encryption or tokenization. It relies on careful control of access to
+the additional identifying information. So to be clear the biggest
+difference between anonymization and pseudonymisation is that
+pseudonymized data can be reversed using an additional
+set of information or an encryption key while
+anonymization is irreversible. A lot of methods, mechanisms and
+tools have been developed over the years that produce data with
+various levels of both anonymity and the capability of being identified. It ranges from personally
+identifiable to truly anonymous data, personally identifiable data contains
+name, address, phone, email etc. While data which is purely anonymous and in accordance with GDP are guidelines
+does not include personally identifiable information or PI and
+cannot be connected to PII. Even with additional information,
+pseudonymized and de identified data form the intermediary
+category of the spectrum. They are indeed a way of preserving
+certain aspects of data privacy but not to the level of truly anonymous data. Note however, that the difference
+between de identified data and pseudonymized data is not well defined and many discussions will group
+them together as one thing. So what part of your data should
+you anonymized basically everything that is part of PI that includes any
+data that reveals the identity of a person which are known as identifiers
+and with the term identifiers. I mean any natural or
+legal person living or dead including their dependents,
+their ascendance and descendants. This also includes other related
+persons who might be identifiable through either direct or
+indirect relationships. For example, this includes
+features such as family names, patron names first names,
+maiden names, aliases, address phone, bank account details, credit cards,
+tax IEDs and so forth.

@@ -1,0 +1,65 @@
+Now let's get started with
+a demo of Keras Autotuner. In this example, you'll start by manually
+setting the hyper parameters for a model which classifies
+the MNIST dataset. For simplicity, let's work with the most
+basic neural network architecture consisting of one input layer,
+one hidden layer, and one output layer. Let's begin by importing
+the required libraries and dataset. Here's the Keras code
+to implement the model. This is maybe the hello world of deep
+learning where you have a data set and of fashion items and you want to build
+a basic model to recognize them. You can train a model
+in just a few seconds, that is about 97%
+accurate on this dataset. As you can see when we run this,
+we end up with 0.9866 accuracy and each epic takes a little over 10 seconds. But can we do better? The first question I usually get
+after showing this is where do these numbers come from? Why does this architecture
+have 512 neurons? Why not another number? And why does the dropout use 0.2,
+why not 0.5 or 0.1? Often, the answer is that
+I used a lot of trial and error to come up with these numbers. Or as is often the case, I just copy
+the code from a working example and didn't really think about it. Let's think about whether this
+is an attribute choice or not. The natural questions are will the model
+do better with more hidden units or less? Will it learn faster with less units? Can a smaller architecture do
+that without losing accuracy? You can experiment by changing it,
+rerunning it, changing it again and
+rerunning it again, et cetera. But that's a lot of work. What if you could automate this. So Keras tuner to the rescue. Let's look at how to install and
+use it, and maybe change the number of neurons in this space from
+16 to 256 in steps of 16. And how to run it to get the best results. So installing Keras tuner is as simple as
+just doing a pip install like this and and then importing it. So we'll import it as kt in this example. Now let's go back to our model and
+take a look. Instead of hard coding 512
+neurons into the hidden layer, we'll use this code instead. Notice that the number of units in
+the first dense layer is set to hp.Int. This will be tuned by the Keras tuner. So this sets up an integer
+value starting at 16 and going to 512 in steps of 16. Later you'll see how Keras tuner
+will run the model multiple times, gathering metrics each time and
+optimizing for the best one. In this case, the value is what drives
+the number of times kt does its thing. Next, you'll define your search strategy. Keras tuner supports
+multiple strategies and you define which one you
+want to use like this. In this case,
+I'm using the Hyperband strategy. It also supports random search and
+Bayesian optimization and Sklearn strategies. You can learn more about
+these at the Keras tuner site at Keras-team.github.io/kerastuner. The parameters you choose will
+vary based on your strategy. But the important one to
+note is the objective. In this case,
+our objective is val_accuracy, so we want to maximize on
+the validation accuracy. You can find details on
+the rest at the Keras site. Search can take a while to complete and
+use a lot of compute resources. But you can configure a an early stopping
+callback that stops the search when the conditions are met. So for example, here I'm
+monitoring the validation loss and the patience is set to five, which means
+that it doesn't change significantly, or if it doesn't change
+significantly in five epics, then stop searching on this iteration. And you set the call back
+as a search parameter. The rest of the parameter specify how
+to search, such as the data and label, the number of epics to train for,
+and the validation split. So for example how much data you will use
+to validate against the training set. As it searches,
+you'll see the results of each trial. We're only searching on one parameter,
+the units in the dense hidden layer. As you can see as it updates, you can
+keep track of the best value so far. Which at this point that we
+have in the slide is 48, and in this case actually it ended up
+that way too when it completed. So I can go back and
+try my architecture again and use the results of the Keras tuner
+to set the number of units manually, this time with 48 neurons in the layer, which is the number that we
+got from from Keras tuner. And when it's retrained,
+you'll see the results. It's only been five epics and the value
+isn't quite as good as it was before hand, but our epics are three times
+quicker than they were. So I can maybe train for longer to get
+better results knowing that at the very least I've optimized
+part of my architecture.

@@ -1,0 +1,15 @@
+Well, you've done it. You've reached the end of
+the specialization, congratulations. Just a few parting thoughts,
+first, as you clearly know by now, this is a field which involves a broad
+range of technologies and disciplines. We've covered a lot, but there's much more to learn about and
+explore and that's a good thing. I hope we've given you the tools
+to enable you to explore and learn more about this
+field in an informed way. You've probably noticed that for many of
+the topics, we've only given you a high level understanding of the topic and where
+it fits in the world of production ML. That was necessary, since going
+into depth in all of these topics would have required a much longer
+series of courses and leaving them out would have left you uninformed
+about major topics in this field. So now, in some ways,
+your journey really starts and since it's a journey with no real end,
+I'm traveling it with you. See you out there and
+again, congratulations.

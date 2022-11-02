@@ -1,0 +1,41 @@
+Let's take a look at an attack on
+a model using an adversarial example, which uses the fast gradient sign method, which was described by Goodfellow and
+others in a kind of a landmark paper. So what is an adversarial example? Adversarial examples are specialized
+inputs created with the purpose of confusing and neural network, resulting in
+the misclassification of a given input. These notorious inputs
+are indistinguishable to the human eye, but cause the model to fail to
+identify the contents of the image. There are several types of such attacks. However, here the focus is on
+the fast gradient sign method attack, which is a white box attack whose
+goal is to ensure misclassification. A white box attack is where the attacker
+has complete access to the bottle being attacked. One of the most famous examples of
+an adversarial image is shown here, and it's taken from that paper. We have a panda on the left that the model
+predicts with fairly high confidence, some noise is added,
+which is fairly opaque to a human. And the result is that the model now
+thinks that that panda is a gibbon with a very high confidence. So I'm not going to go into
+the details of the attack method, they're here and this example
+is available in the references. You can go through it yourself. But what we will do is just
+walk through this example and show really how easy
+this kind of attack is. So we're running into co lab here,
+we'll start by doing some imports of tensorflow and
+matplotlib, and then we'll load a pre-trained MobileNetV2
+and the ImageNet class names. So this will take a second, there we go. And then, we have this helper
+function here to do pre-processing. And then,
+we'll take a look at the original image, which in this case is
+a Labrador Retriever. So we're going to download that data. And now let's look at the image,
+we'll do a plot here, and there it is a Labrador Retriever. Okay, so we'll create an adversarial image
+using the fast gradient sign method. And there actually is the code that
+we'll use, you can see it's very simple. And we can visualize
+the perturbations that that method makes to give you an idea. So looking at that, most people
+wouldn't expect it to have really any change in the model based on
+applying that, but as we'll see it does. So one of the things we do is we're
+going to try different values for epsilon, which is one of
+the parameters of the method. And we'll see how different values of
+epsilon have different predictions that the model makes. So we have a helper method
+there to display the image, and then here's some different
+values of epsilon and the resulting model predictions. So there's our original
+Labrador Retriever confidences. This is actually, yeah, with the input and then with epsilon 0.01 and now thinks it's a Saluki
+which is a thin dog. And then a little higher value of epsilon. It thinks it's a Weimaraner, and
+again a little bit higher than that. It still thinks it's a Weimaraner
+with a little more confidence. All right, so that's one very simple
+method of doing an adversarial attack that can fool the model into making an
+incorrect prediction based on image data.

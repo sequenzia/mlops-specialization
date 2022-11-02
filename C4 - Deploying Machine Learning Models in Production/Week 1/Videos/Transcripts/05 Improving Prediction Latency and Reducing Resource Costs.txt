@@ -1,0 +1,92 @@
+Once you've selected or
+built a candidate model, that might be right
+for your task, it's a good practice to
+profile and benchmark it. The TensorFlow Lite
+benchmarking tool has a built-in profiler
+that can then show you per operator
+profiling statistics. This can help with understanding
+performance bottlenecks and identifying which operators dominate the compute time. If a particular app appears frequently in the model
+and based on profiling, you find that this app consumes a lot of
+time and resource, you can look into optimizing
+it or using a different one. We've talked a lot about
+model optimization, which aims to create
+smaller models that are generally faster and
+more energy-efficient. This is especially important for deployments on mobile devices. TensorFlow Lite supports multiple optimization techniques
+such as quantization. You can also increase
+the number of interpreter threads to speed
+up the execution of apps. However, increasing
+the number of threads will also make your model use
+more resources and power. For some applications,
+latency might be more important than
+energy efficiency. Multi-threaded
+execution, however, also results and increased performance variability
+depending on what else is running
+concurrently, and this is particularly
+the case for mobile apps. For example, some
+isolated tests could show a 2x speedup versus a
+single-threaded version, but if another app is
+executing at the same time, it can actually result in worse performance than
+a single-threaded one, so you really need
+to check it out. If you go the other route and deploy a model to a server, there are of course, also some considerations
+in how you design it. The users of your model need
+a way to make requests, and often this is through
+a web application. The model is wrapped as an
+API service in this approach, and most serving
+infrastructures and languages have web frameworks that can
+help you to achieve this. For example, Flask is a very popular
+Python web framework that it's very easy to
+roll out and API in Flask. If you're familiar with it, you can create a new web
+client in maybe 10 minutes. Django is also a very powerful
+web framework for Python. Similarly, Java also has many options like Apache
+Tomcat spraying, et cetera. Model servers can manage
+model deployment. For example, creating
+the server and managing it to serve prediction
+requests from clients. They eliminate the
+need for putting models into custom
+web applications. With only a few lines of code, you can generally deploy models. They also make it easy to update a rollback models, load, and unload models on demand or when resources are required, and manage multiple
+versions of models. Clipper is a popular
+open-source model server developed at the UC
+Berkeley Rise Lab. Clipper helps you
+deploy a wide range of models built in
+frameworks like Cafe, TensorFlow, and Scikit-learn. Its overall aim is to
+be model agnostic. Clipper includes a
+standard rest interface, so this makes it easy for you to integrate with
+production applications. Clipper wraps your models in Docker containers if you want, for cluster and
+resource management. It also helps you set
+service level objectives for reliable latencies. TensorFlow Serving is also
+an open-source model server, which offers a flexible
+high-performance serving system for machine learning models designed for production
+environments. TensorFlow Serving makes it easy to deploy new algorithms in experiments while keeping the same server
+architecture and APIs. TensorFlow Serving
+provides out of the box integration
+with TensorFlow models, but it can also be extended to serve other types
+of models and data. TensorFlow Serving offers both the REST and
+gRPC protocols, gRPC is often more
+efficient than REST. TensorFlow Serving has
+demonstrated performance of up to 100,000 requests
+per second per core, making it a very
+powerful tool for serving machine
+learning applications. It has a version
+manager that can easily load and rollback
+different versions of the same model and
+it allows clients to select which version to
+use for each request. There are also
+advantages to using a managed service to
+serve your models. Let's take a look at one of
+these called the Google Cloud AI Platform Prediction
+Service as an example. It allows you to set
+up real-time endpoints which offer low
+latency predictions, and you can also use it to get predictions on batches of data. It also allows you to
+deploy models that have been trained either on
+Google Cloud or of course, on your own premises. You can scale automatically
+based on your traffic, which can save you a
+whole lot of costs, while at the same
+time giving you that high degree of scalability. Of course, there are
+accelerators available as well, including GPUs and TPUs. Other Clouds like
+Microsoft Azure and Amazon AWS will offer
+similar capabilities. That's a tour of
+some serving options including mobile web and Cloud. Next up, you're going
+to get hands-on and explore deploying to the
+AI Prediction Platform. After that, we'll
+see how to install TensorFlow Serving and then use it to do computer
+vision predictions.

@@ -1,0 +1,180 @@
+Previously you looked
+at some model serving architectures and how they can work to provide an
+interface to a model. Of course, when it comes to
+serving a model like this, managing scale and indeed lots of services
+becomes paramount. Next you look at
+what scaling is, why it's important, and some services that
+are available to give you scaling in your apps and your
+machine learning workloads. Consider a model, and here's
+a very simple example, but most models will be far larger and much more
+complex than this one. Then consider the costs of
+training deep neural networks with billions of operations
+on huge datasets. It could take days to
+complete training on a standard CPU or a single GPU. If you can scale
+out the hardware on which the training runs, and then distribute
+the training across different items of
+hardware and maybe even distribute the data
+by sharding it across this hardware you can make that training far
+more efficient. Similarly, you
+could also consider the cost of training a
+network beyond just the data. The larger and more
+sophisticated the network, the more parameters that need
+to be tuned and fine-tuned. A simple neuron like this one has two floating
+point parameters. Consider large
+networks that have many millions of parameters
+that need to be learned. Not only that,
+consider what happens when you have deployed
+your model to a server. Huge volumes of
+requests to the server for inference can overwhelm it. So the ability to scale
+the runtime inference, as well as the
+training is vital. There are two main
+ways to scale, horizontal and vertical. So let's start with vertical. It's pretty straightforward
+and as the image suggest it's using bigger
+and more powerful hardware. It might be upgrading your CPU, adding more RAM, using newer GPU's and other types of power. If your car could only hold five people and you need
+to move 100 people, you can get a bigger car
+that holds 10 people. So then you can
+move twice as fast. Or this horizontal scaling, which means adding more
+devices to the network. It adds more GPUs or CPUs
+when the load increases. Instead of buying a bigger car, you could get 20
+cars the same size and transport all
+100 people at once. To follow that metaphor, you could just borrow the other 19 cars
+along with your own for the time
+that you need them. That's basically the same
+concept with cloud computing, where you can scale up to your need and scale
+right back down again when you don't need it anymore and only pay
+for what you use. I would generally recommend horizontal scaling for
+a variety of reasons. First of all, is
+that elasticity. Like my 100 people in cars
+that fit five people scenario, instead of getting rid of
+your reliable car to get a bigger one and only
+chip away the problem, you could lease 19 cars just like your own and give them
+back when you're done. That way you don't
+have to continually maintain and ensure all
+of the other cars, etc. It's exactly the same in
+a scenario like this. Not only that, if you're
+scaling vertically, you generally have to
+take your app offline in order to upgrade the
+hardware resources. When it's elastic, you
+don't need to do this, you just spin up new ones. So some frameworks such
+as Google's App Engine are also really smart in
+using machine learning to predict usage patterns so
+that they can pretty warm up the machines before
+they're actually needed, reducing
+overall latency. Of course, there
+are limitations, but they usually budgetary
+and not hardware. If you need more nodes
+and you can afford them, you can just go get them. There are lots of
+vendors offering cloud platforms that allow
+you to scale horizontally. Keep an eye on what they offer when it comes to the
+overall scaling of your system and I'll generally keep an eye
+out for three things. Can I manually scale? What happens if I say I only
+want any instances of a VM, for example. Can I autoscale? What happens if I want my app to automatically spin up and
+down based on demand? What does latency
+and costs look like? Finally, how aggressive is the system at spinning up
+and down based on my need? Then of course, the next
+question arises, and that is, how can I manage
+my additional VMs to ensure that they have the
+content on them that I want? For machine learning, there might be a lot of dependencies, access to data, permissions, and many other
+configurable items. If I'm going to
+scale horizontally, I want the new machines to be able to be up and
+running quickly. For that, there's containerism. Let's explore what
+that's all about next. Let's think about
+a typical system where I may have a number
+of apps that are running. The pattern will
+generally look like this, where I have my apps running
+using some binaries or libraries within an
+operating system that's executed by hardware. An extension to this is the
+virtual machine architecture, where the apps can still run on bin library within
+an operating system, but that operating system
+does not run on hardware, and instead it runs on a virtual machine
+that has no hardware. This VM is managed by a hypervisor which acts as the manager of the
+virtual machines, each with its own operating
+system bin and apps as shown. The hypervisor will typically run on the metal
+of the hardware. Already, you can see how this could be used for
+horizontal scaling. Our hardware might support multiple instances
+of operating systems and apps as shown here. This is pretty cool, but
+it can face a limitation. Namely that each VM has to
+have a lot of stuff on it, not at least a full
+operating system. As such, it might not be
+the most efficient use of resources in the system and that's where
+containers can help. As you can see, architecturally, they're quite similar
+to the VM concept, except they don't require separate operating systems per partition so that they are much lighter in weight and
+the same hardware can typically manage more containers
+than virtual machines. Consider the advantages
+of using containers because each app instance doesn't require an
+operating system, you can generally run more of
+them on the same hardware, giving you much better
+horizontal scalability. The abstraction of having them run within a container
+runtime also gives you this greater
+flexibility on hardware that supports
+a container runtime. You don't need to worry
+about the operating system, your app just works. This leads to easier deployment and more options in deployment. You've no doubt heard of Docker, which is the most popular
+container runtime. It started out as a Linux-based
+technology but spread rapidly to other operating
+systems like Windows, and it's widely used
+in data centers, personal machines, and public
+cloud infrastructures. You'll often see
+developer tutorials implemented as docker instances, as this makes it much
+easier to handle complex dependencies or
+operating system quirks. Containers will offer you a really convenient way
+to do horizontal scaling, but then not without
+challenges of their own. For example, you might want
+to run multiple containers on multiple machines and try
+to keep them all in sync. Like any app, even
+one in a container, it's at risk of going down or the container host
+itself might fail. So you also want to keep
+a fleet of containers on a hot standby so you can switch traffic over
+should one go down. Thus, we'll need to
+keep the idea of container orchestration
+front of mind. Let's dig into that next. The idea behind container
+orchestration is simple. It's having a set of tools
+to do things like managing the lifecycle of containers,
+including their scaling. On top of your
+container manager, container orchestration
+generally gives multiple services such as resource management
+to ensure that the containers aren't
+overallocating hardware resources, scheduling so that
+containers meet up and downtime
+requirements and of course, general service
+management so you can manage how the orchestration
+environment does its job. For example, you could use service management
+to ensure that a certain number of
+containers are on hot standby should
+some containers fail. Over time, as you understand
+how your system operates, you could tweak that number. Two of the more popular
+container orchestration tools are Kubernetes and Docker Swarm. Let's look into Kubernetes next as it underpins Kubeflow, a technology that lets you
+scale your ML apps and learning with horizontal
+scaling using containers. I won't go into a lot of
+detail about Kubernetes here, you can learn more about
+it at kubernetes.io. But in summary, it's an open source system
+for automating, deployment, scaling, and management of
+containerized applications. A group's containers that
+make up an application into logical units for easy
+management and discovery. Kubernetes builds
+upon many years of experience in building
+scalable applications at Google combined with
+community experience with a goal to bring you
+the best of both worlds. Check out the site and
+the link provided in the additional readings
+at the end of the lesson, and you'll see a video of how the Financial Times
+newspaper in London migrated hundreds
+of microservices to a container environment, scaling them horizontally
+using Kubernetes. Later this week you'll do
+a quick lab on TensorFlow Serving using Kubernetes
+with autoscaling. When it comes to
+deploying ML workflows on Kubernetes, Kubeflow evolved. It's designed to
+make deployments of ML workflows so that data
+ingestion, feature extraction, training, model management, and all of those kind
+of things are portable and scalable using Kubernetes. An important attribute of Kubeflow is that
+it's designed so that anywhere Kubernetes
+can run, you can use it. Whether you're choosing a
+Cloud vendor doing containers on your own premises or some kind of
+combination of the two, your machine learning workflows will be able to run with it. Please visit kubeflow.org to
+learn more and in particular checkout their Getting Started to see how to
+install and use it. Now that you've been
+looking at scaling horizontally and
+exploring how to do that via containers and
+container orchestration with Kubernetes as well as Kubeflow specifically for machine
+learning workflows, I recommend that you
+spend a little time to use these products before
+you go any further.

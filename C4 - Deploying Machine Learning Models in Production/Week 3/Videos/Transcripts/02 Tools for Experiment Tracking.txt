@@ -1,0 +1,96 @@
+Now let's look at some of
+the tooling that's available to help you implement experiment tracking. Along with your code and
+your runtime parameters, you also need to version your data. Remember that your data reflects
+a snapshot of the world at the time when the data was gathered and
+of course the world changes. If you're adding new data or
+purging old data or cleaning up your data, it will change the results
+of your experiments. So just like when you make changes
+in your code or your model or your hyper parameters,
+you need to track versions of your data. You might also change your feature vector
+as you experiment to add delete or change features and
+that needs to be versioned. So if you're going to be able to track,
+understand, compare and duplicate your experimental results
+you need to version your data. Fortunately there are good tools for
+data versioning. These include Neptune which
+includes data versioning, experiment tracking and model registry. Pachyderm which lets you continuously
+update data in the master branch of your repo while
+experimenting with specific data commits in a separate branch or
+branches. Delta Lake which runs on top of your
+existing data lake and provides data versioning including rollbacks and
+full historical audit trails. Git LFs which is an extension to get and replaces large files such
+as audio samples, videos, datasets and
+graphics with text pointers inside Git. DoIt which is a SQL database
+that you can fork, clone, branch, merge, push and
+pull just like a Git repository. LakeFS, which is an open source platform
+that provides a Git like branching and committing model the scales
+to petabytes of data. DVC, which is an open source
+version control system for machine learning projects and
+runs on top of Git. And ML-Metadata,
+which is a library for recording and retrieving metadata associated
+with ML developer and data scientist workflows
+including datasets. ML MD or
+ML-Metadata is an integral part of TFX but it's designed so
+that it can also be used independently. The typical ML workflow involves
+running lots of experiments. Most developers find that looking at
+results in the context of other results is much more meaningful than looking
+at a single experiment alone. But as you can see, looking across lots of experiments at
+once can be a bit confusing at first. As you gain experience with the tools,
+you'll get more comfortable and it will be easier to focus
+on what you're looking for. There are lots of inputs changing and
+lots of different possible outputs. Some runs will inevitably fail early. Different experimentation styles
+lead to different workflows, but it's a good idea to log every
+metric that you might care about. Tag experiments with a few consistent tags
+which are meaningful to you and add notes. Developing these habits can keep
+things much more organized later. TensorBoard is an amazing tool for
+analyzing your training, which makes it very useful for
+understanding your experiments. For example, you can use a TensorBoard
+callback to log metrics and logs the confusion matrix
+at the end of every epoch. When you display the results,
+you get a clear view of how your model is doing in this case by
+examining a confusion matrix. By default the dashboard shows the image
+summary for the last log step or epoch. You can use the slider to view
+earlier confusion matrices. Notice how the matrix changes
+significantly as training progresses with darker squares,
+coalescing along the diagonal and the rest of the matrix
+tending towards zero & white. This means that your classifier is
+improving as training progresses. The ability to visualize the results as
+the model is training and not just when the training is complete can also give
+you insights into your experiments. As you experiment,
+you'll be looking at each result as it becomes available and
+starting to compare results. Organizing your experimental results
+from the start is important to help you understand your own work when
+you revisit it later and help your team understand it as well. You want to make sure that it's
+easy to share and accessible. So that you and your team can collaborate especially
+when working on larger projects. Tagging each experiment and
+adding your notes will help both you and your team and help avoid having to
+rerun experiments more than once. Tooling, which enables
+sharing can really help. For example, if you can use
+the experiment management tool provided by Neptune AI to send a link that
+shares a comparison of the experiments. It makes it easy for you and
+your team to track and review progress, discuss problems and
+inspire new ideas. Vertex TensorBoard and similar cloud based tools can also
+offer significant advantages. First, like many infrastructure decisions,
+there are significant advantages to using a managed service, including
+security, privacy and compliance. But one of the most important features is
+having a persistent shareable link to your dashboards, which you can
+share with your team and not have to worry about setting it up and
+maintaining it. Having a searchable list of all
+the experiments in a project can also be incredibly useful. Tools like that are a big help and a huge
+improvement over spreadsheets and notes. However you can take your machine
+learning project to the next level with creative iterations. In every project, there is a phase where
+a business specification is created that usually includes a schedule,
+budget and the goals of the project. The goals are usually a set of KPIs,
+business metrics or if you are incredibly lucky,
+actual machine learning metrics. You and your team should choose what you
+think might be achievable as business goals that align with the project and
+start by defining a baseline approach. Implement your baseline and
+evaluate to get a first set of metrics. Often you'll learn a lot from
+those first baseline results. They may be close to meeting your goals, which tells you that this is
+likely to be an easy problem. Or your results may be far off so
+far off that you'll start to wonder about the strength of the predictive
+signal in your data and start considering more
+complex modelling approaches. And don't forget that although there is
+a tendency to focus on modeling metrics, and unfortunately,
+much of the tooling also has that focus. Since you're doing production ML, you
+also need to meet your business goals for latency, cost, fairness,
+privacy, GDPR and so forth.

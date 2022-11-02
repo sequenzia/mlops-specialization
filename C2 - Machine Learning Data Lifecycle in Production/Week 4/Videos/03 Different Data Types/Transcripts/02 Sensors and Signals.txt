@@ -1,0 +1,38 @@
+Let's review sensor generated data
+which is often referred to as signals. Let's start by defining important
+terminology by means of an example using a collected
+accelerometer data from smartphones. The accelerometer is a sensor signals
+are sequences of data collected by a sensor In real time data
+points are indexed by time stamps. So therefore this is a time series, this is time series data and
+we're going to use time series analysis. So let's look at a concrete problem,
+human activity recognition or HAR, can we infer the activity from
+the accelerometer patterns in time? Let's look at some of the challenges
+of activity recognition. Properly segmenting the sensor data is
+key to successful activity recognition. This is similar to the windowing strategy
+that we just discussed for weather data. Inertial data like this
+fluctuates greatly over time, so segmentation is key to detecting
+proper activity chunks. The raw time dependent acceleration
+data set is separated into segments during the data
+segmentation process. All of the following HAR related
+operations, including feature extraction, classification and validation
+etcetera are based on these segments. The length of the segments depends
+on the application context and sampling rate of the sensors, segments for
+HAR are typically 1- 10 seconds long. Now that the data is segmented,
+let's talk about typical transformations. The segment of data
+should be transformed for modeling because it helps
+with model accuracy and performance, there are different ways
+to go about transforming your data. A spectrogram of an inertial
+signal is a new representation of the signal as a function
+of frequency and time. Spectrogram representation
+is a powerful method for extracting interpretable features that
+represent the intensity differences among different inertial data points. Other options include normalization and
+encoding, multichannel processing and
+applying a fourier transform. Let's go over what you will
+do in the optional notebook, you will try to recognize human
+activities from sensor data. The wireless sensor data mining data
+set contains data which was collected through controlled laboratory conditions. The data set is a test bench for activity recognition using
+cell phone accelerometer data, In this notebook, you'll pre process
+the data within a TFX pipeline. There, you will use
+tf.data.Dataset.window to group the data into windows, which can be used
+with an R N N or similar model. The training and model development is not
+implemented on the notebook since we're focusing here on the data itself.

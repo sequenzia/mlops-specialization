@@ -1,0 +1,58 @@
+Welcome to this fourth and final course
+in the machine learning engine for production and Emma of specialization. The first course had covered the high
+level overview of the entire machine learning project lifecycle, from scoping
+the data to modeling to deployment. The second course centered around data for
+production environments and building data pipelines for production Ml. The third course went to the building and maintaining production grade
+machine learning models. This fourth course will bring all
+the modules covered so far together so that you learn how to ensure a reliable
+deployment of your production system. Managing deployed systems is quite
+a challenge as it requires making changes, maybe even while the system
+continues to serve infants requests. This course focuses on
+modern Morozov's practices. They'll let you do this effectively and
+efficiently. I'm thrilled to reintroduce this
+cause's instructors, Robert Crow, whose tend to fill developer engineer
+google and the world expert in MAS. As well as Laurence Maroney,
+who has AI advocacy at Google and teach three other TensorFlow
+specializations with deep learning AI. >> This course focuses on production
+systems and applications. That includes the issues and
+methodologies for designing, deploying and maintaining systems software,
+data and models. This is where things get real
+where you stand up systems, load models and serve requests. In this course, you'll serve models and
+deliver batch and real time inference results by building
+scalable and reliable infrastructure. You'll implement techniques to run
+inference on both edge devices and applications running in a web browser. You'll also coordinate model
+management delivery by managing model version's lineage and registries. You'll implement continuous integration
+and delivery for model deployment and maintain and monitor a continuously
+operating production system. You'll even implement Ml
+processes pipelines and workflow automation that adhere
+to modern Ml ops best practices. Which will allow you to manage and audit your projects during
+their entire life cycle. You'll establish procedures
+to detect model decay and prevent reduced accuracy,
+including monitoring and logging. >> So thanks Robert and
+as Robert Andrew said, this is really where
+it begins to get real. And one of the things that you're going to
+be doing in this course is to expand on the tools that you've learned in the
+classroom to go beyond the classroom and start using these tools in the real world. You're going to be looking at serving
+technologies and infrastructure. You're going to be looking at scaling
+methodologies, and you're also going to be looking at the different ways that you
+can deploy your models in production. And this goes all the way
+from tiny models and embedded systems through light models and
+mobile systems. JavaScript models running in the browser
+and then of course your main models that can run on a server, be it in a server
+infrastructure or a cloud infrastructure. And there's so many different types of deployed systems
+that you're going to learn about. There's going to be some fun stories,
+for example, of how to scale models and one example I had of being needing to
+scale an application to deal with the fans of a very popular boy band. And the impact of trying to scale for
+that. And then also with models, for example how you may need to change
+them dynamically on the fly. For something like a recommender system, where there may be changes where
+new products become available. Our new trends suddenly hit, and you want
+to be able to update your recommended systems on the flight
+to be able to do that. So there's lots of great
+stuff in this course. Why don't we just get started? >> Thanks, rather than Lawrence. I'm excited about this cause that connects
+all the machine learning production pipeline components together. Anyone building production machine
+learning systems will benefit from knowing these techniques for
+managing and monitoring systems after
+deployment to the learner. This course to set you up to implement
+modern Emma of practices and tackle production machine
+learning challenges. Let's dive into deploying
+production pipelines.
